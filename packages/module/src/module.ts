@@ -46,5 +46,6 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.build.transpile.push(runtimeDir)
     addPlugin(resolve(runtimeDir, 'plugin.client'))
     addImports({ name: 'useFirebase', from: resolve('composables/useFirebase') })
+    addImports({ name: 'useAuth', from: resolve('composables/useAuth') })
   }
 })
