@@ -1,0 +1,17 @@
+{
+  "eslint.packageManager": "yarn",
+  "eslint.workingDirectories": [
+    {
+      "directory": "./packages/docs",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "./packages/module",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "./packages/playground",
+      "changeProcessCWD": true
+    },
+  ]
+}

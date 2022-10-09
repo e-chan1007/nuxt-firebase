@@ -1,0 +1,9 @@
+{
+  "extends": "./packages/playground/.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "types": [
+      "vite/client"
+    ]
+  }
+}

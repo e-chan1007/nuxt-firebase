@@ -1,0 +1,19 @@
+{
+	"name": "Node.js & TypeScript",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"VARIANT": "16-bullseye"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"Vue.volar"
+			]
+		}
+	},
+	"postCreateCommand": "yarn install && yarn dev:prepare",
+	"remoteUser": "node"
+}

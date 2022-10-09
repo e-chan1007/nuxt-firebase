@@ -1,0 +1,74 @@
+{
+  "name": "@e-chan1007/nuxt-firebase",
+  "description": "Integrate Firebase With Nuxt (3)",
+  "keywords": [
+    "firebase",
+    "nuxt"
+  ],
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/e-chan1007/nuxt-firebase"
+  },
+  "homepage": "https://e-chan1007.github.io/nuxt-firebase",
+  "author": "e-chan1007 <echan041007@gmail.com> (https://e-chan.me/)",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "yarn workspaces foreach run dev",
+    "dev:build": "yarn workspaces foreach run dev:build",
+    "dev:prepare": "yarn workspaces foreach run dev:prepare",
+    "dev:preview": "yarn workspaces foreach run dev:preview",
+    "docs:dev": "yarn workspaces foreach run docs:dev",
+    "docs:build": "yarn workspaces foreach run docs:build",
+    "docs:serve": "yarn workspaces foreach run docs:serve",
+    "lint": "eslint --ext .js,.cjs,.mjs,.ts,.cts,.mts,.vue . && remark . -q",
+    "postinstall": "husky install",
+    "prepack": "pinst --disable && yarn workspaces foreach run prepack",
+    "postpack": "pinst --enable",
+    "release": "standard-version"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.0.0-rc.11"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@nuxt/module-builder": "latest",
+    "@nuxt/schema": "^3.0.0-rc.11",
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "eslint": "latest",
+    "husky": "^8.0.1",
+    "nuxt": "^3.0.0-rc.11",
+    "pinst": "^3.0.0",
+    "remark-cli": "^11.0.0",
+    "remark-lint": "^9.1.1",
+    "remark-preset-lint-recommended": "^6.1.2",
+    "standard-version": "^9.5.0",
+    "vuepress": "next"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended",
+      [
+        "remark-lint-list-item-indent",
+        "mixed"
+      ]
+    ]
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@3.2.4"
+}

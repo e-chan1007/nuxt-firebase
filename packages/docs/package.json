@@ -1,0 +1,8 @@
+{
+  "name": "@e-chan1007/nuxt-firebase-docs",
+  "scripts": {
+    "docs:dev": "vuepress dev",
+    "docs:build": "vuepress build",
+    "docs:serve": "vuepress serve"
+  }
+}
