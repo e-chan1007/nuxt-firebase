@@ -6,6 +6,6 @@ export default defineNuxtConfig({
     FirebaseModule
   ],
   firebase: {
-    addPlugin: true
+    configEnvPrefix: 'FIREBASE_'
   }
 })
