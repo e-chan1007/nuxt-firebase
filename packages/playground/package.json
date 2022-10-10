@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "HOST=0.0.0.0 nuxi dev",
     "dev:build": "nuxi build",
+    "dev:generate": "nuxi generate",
     "dev:prepare": "nuxi prepare",
     "dev:preview": "HOST=0.0.0.0 nuxi preview"
   }

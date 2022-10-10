@@ -28,6 +28,7 @@
   "scripts": {
     "dev": "yarn workspaces foreach run dev",
     "dev:build": "yarn workspaces foreach run dev:build",
+    "dev:generate": "yarn workspaces foreach run dev:generate",
     "dev:prepare": "yarn workspaces foreach run dev:prepare",
     "dev:preview": "yarn workspaces foreach run dev:preview",
     "docs:dev": "yarn workspaces foreach run docs:dev",
@@ -40,7 +41,9 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0-rc.11"
+    "@nuxt/kit": "^3.0.0-rc.11",
+    "jsonwebtoken": "^8.5.1",
+    "vite-plugin-static-copy": "^0.9.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -48,8 +51,10 @@
     "@nuxt/module-builder": "latest",
     "@nuxt/schema": "^3.0.0-rc.11",
     "@nuxtjs/eslint-config-typescript": "latest",
+    "@types/jsonwebtoken": "^8",
     "eslint": "latest",
     "firebase": "9.10.0",
+    "firebase-admin": "^11.1.0",
     "husky": "^8.0.1",
     "nuxt": "^3.0.0-rc.11",
     "pinst": "^3.0.0",
@@ -60,7 +65,8 @@
     "vuepress": "next"
   },
   "peerDependencies": {
-    "firebase": "^9 <9.11 || >9.11"
+    "firebase": "^9 <9.11 || >9.11",
+    "firebase-admin": "*"
   },
   "remarkConfig": {
     "plugins": [

@@ -1,12 +1,13 @@
-import { FirebaseApp, getApps } from 'firebase/app'
+import { getApp } from 'firebase/app'
 
 /**
- * Use Firebase App
- *
+ * Use Firebase App  
  * If not initialized, returns `null`.
  */
 export const useFirebase = () => {
-  const app = getApps()[0]
-  if (typeof app === 'undefined') { return null }
-  return app
+  try {
+    return getApp()
+  } catch (e) {
+    return null
+  }
 }
