@@ -73,17 +73,22 @@ export default defineNuxtModule<ModuleOptions>({
     /* Composables */
     addImportsDir(resolve('composables'))
     const composableNames = ['useAuth', 'useFirebase', 'useFirebaseAdmin']
+    const serverComposableNames = ['useFirebase', 'useFirebaseAdmin', 'useServerAuth']
     const composablesTypePath = addTemplate({
       filename: 'types/firebase.d.ts',
       getContents: () => [
         'declare module \'#firebase\' {',
-        ...composableNames.map(name => `  const ${name}: typeof import('${resolve('composables')}').${name}`),
+        ...composableNames.map(name => `  const ${name}: typeof import('${resolve('composables')}/${name}').${name}`),
+        '}',
+        'declare module \'#firebase/server\' {',
+        ...serverComposableNames.map(name => `  const ${name}: typeof import('${resolve('composables')}/${name}').${name}`),
         '}'
       ].join('\n')
     }).dst
     nuxt.hook('nitro:config', (nitroConfig) => {
-      nitroConfig.alias = nitroConfig.alias || {}
+      nitroConfig.alias = nitroConfig.alias ?? {}
       nitroConfig.alias['#firebase'] = resolve('composables')
+      nitroConfig.alias['#firebase/server'] = resolve('composables')
     })
     nuxt.hook('prepare:types', (options) => {
       options.references.push({ path: composablesTypePath })
@@ -139,6 +144,14 @@ export default defineNuxtModule<ModuleOptions>({
           dest: baseURL.slice(1)
         }]
       }).forEach(plugin => addVitePlugin(plugin))
+
+      const middlewarePath = addTemplate({
+        write: true,
+        filename: 'middleware/auth.ts',
+        getContents: getJSTemplateContents(resolve('middleware/auth.ts')),
+        options
+      }).dst
+      nuxt.options.serverHandlers.push({ handler: middlewarePath })
     }
 
     /* Admin SDK */
@@ -146,7 +159,7 @@ export default defineNuxtModule<ModuleOptions>({
     addPluginTemplate({
       filename: 'plugin.server.ts',
       getContents: getJSTemplateContents(resolve('plugin.server.ts')),
-      options
+      options: { ...options, firebaseConfig }
     })
   }
 })

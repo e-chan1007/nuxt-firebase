@@ -31,8 +31,8 @@ export const useAuth = (): Auth => {
   const currentUser = useState<AuthUser | null>('__FIREBASE_AUTH_CURRENT_USER__')
   const isAuthenticated = computed(() => Boolean(currentUser.value))
   let auth: FirebaseAuth | null = null
-  if (app !== null) {
-    auth = getAuth()
+  if (app !== null && process.client) {
+    auth = getAuth(app)
     auth.onAuthStateChanged((user) => {
       if (user) {
         currentUser.value = { isSSRData: false, ...user }
@@ -40,6 +40,9 @@ export const useAuth = (): Auth => {
         currentUser.value = null
       }
     })
+  } else {
+    const { ssrContext } = useNuxtApp()
+    currentUser.value = ssrContext?.event.context.__FIREBASE_AUTH_CURRENT_USER__ ?? null
   }
   return { auth, currentUser, isAuthenticated }
 }

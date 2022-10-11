@@ -6,7 +6,8 @@ import { getApp, initializeApp } from 'firebase/app'
  */
 export const useFirebase = () => {
   try {
-    return getApp()
+    const app = getApp()
+    return app
   } catch (e) {
     const app = initializeApp(useRuntimeConfig().__FIREBASE_CONFIG__)
     return app
