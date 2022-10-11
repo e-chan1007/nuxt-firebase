@@ -32,7 +32,7 @@ export interface ModuleOptions {
    * 
    * The way to determine which credential to use:  
    * 1. Use Application Default Credentials if undefined (`GOOGLE_APPLICATION_CREDENTIALS`)  
-   * 2. Parse this value as JSON 
+   * 2. Parse this value as JSON  
    * 3. Parse this value as the file path of the JSON file  
    * 4. Use this value as the credential
    */
@@ -70,6 +70,25 @@ export default defineNuxtModule<ModuleOptions>({
       options.authSSR = false
     }
 
+    /* Composables */
+    addImportsDir(resolve('composables'))
+    const composableNames = ['useAuth', 'useFirebase', 'useFirebaseAdmin']
+    const composablesTypePath = addTemplate({
+      filename: 'types/firebase.d.ts',
+      getContents: () => [
+        'declare module \'#firebase\' {',
+        ...composableNames.map(name => `  const ${name}: typeof import('${resolve('composables')}').${name}`),
+        '}'
+      ].join('\n')
+    }).dst
+    nuxt.hook('nitro:config', (nitroConfig) => {
+      nitroConfig.alias = nitroConfig.alias || {}
+      nitroConfig.alias['#firebase'] = resolve('composables')
+    })
+    nuxt.hook('prepare:types', (options) => {
+      options.references.push({ path: composablesTypePath })
+    })
+
     /* Client SDK */
     let firebaseConfig: FirebaseOptions | undefined
     try {
@@ -93,6 +112,7 @@ export default defineNuxtModule<ModuleOptions>({
         firebaseConfig = options.config as FirebaseOptions
       }
     }
+    nuxt.options.runtimeConfig.__FIREBASE_CONFIG__ = firebaseConfig
 
     const recaptchaSiteKey = process.env[options.configEnvPrefix + 'RECAPTCHA_SITE_KEY'] ?? options.recaptchaSiteKey
 
@@ -101,7 +121,6 @@ export default defineNuxtModule<ModuleOptions>({
       getContents: getJSTemplateContents(resolve('plugin.client.ts')),
       options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swPath: resolveURL('firebase-sw.js') }
     })
-    addImportsDir(resolve('composables'))
 
     /* Service Worker */
     if (options.authSSR) {
@@ -123,6 +142,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     /* Admin SDK */
+    nuxt.options.runtimeConfig.__FIREBASE_ADMIN_SDK_CREDENTIAL__ = options.adminSDKCredential
     addPluginTemplate({
       filename: 'plugin.server.ts',
       getContents: getJSTemplateContents(resolve('plugin.server.ts')),

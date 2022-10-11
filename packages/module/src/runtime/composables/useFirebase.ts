@@ -1,13 +1,14 @@
-import { getApp } from 'firebase/app'
+import { getApp, initializeApp } from 'firebase/app'
 
 /**
- * Use Firebase App  
+ * Use Firebase App
  * If not initialized, returns `null`.
  */
 export const useFirebase = () => {
   try {
     return getApp()
   } catch (e) {
-    return null
+    const app = initializeApp(useRuntimeConfig().__FIREBASE_CONFIG__)
+    return app
   }
 }
