@@ -19,13 +19,6 @@ pnpm add -D firebase firebase-admin @e-chan1007/nuxt-firebase
 
 Don't forget to install `firebase` and `firebase-admin`.
 
-:::warning
-Versions listed below are not supported:
-
-*   Legacy (~ v8)
-*   v9.11.0 (doesn't have compatible with Nuxt)
-    :::
-
 ## Setup
 
 1.  Add this module to the Nuxt config

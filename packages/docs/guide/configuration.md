@@ -1,4 +1,5 @@
 # Configuration
+
 ```ts
 export interface ModuleOptions {
   config?: FirebaseOptions | string,
@@ -17,12 +18,14 @@ const DEFAULTS: ModuleOptions = {
 
 ## `config` and `configEnvPrefix`
 
-__client__ SDK options.
-- If `FIREBASE_CONFIG` env is available, parse the value as JSON and pass it to `initializeSDK(config)`.
-- If `config` (as Object) is provided, pass the original value to `initializeSDK(config)`.
-- If `config` (as String) is provided, parse the value as JSON and pass it to `initializeSDK(config)`.
-- If `configPrefix` is provided, read the config from environment variables.
-For example: (`configPrefix`=`FIREBASE_`)
+**client** SDK options.
+
+*   If `FIREBASE_CONFIG` env is available, parse the value as JSON and pass it to `initializeSDK(config)`.
+*   If `config` (as Object) is provided, pass the original value to `initializeSDK(config)`.
+*   If `config` (as String) is provided, parse the value as JSON and pass it to `initializeSDK(config)`.
+*   If `configPrefix` is provided, read the config from environment variables.
+    For example: (`configPrefix`=`FIREBASE_`)
+
 ```properties
 FIREBASE_API_KEY=value
 FIREBASE_AUTH_DOMAIN=value
@@ -33,16 +36,18 @@ FIREBASE_APP_ID=value
 FIREBASE_DATABASE_URL=value
 FIREBASE_MEASUREMENT_ID=value
 ```
+
 You can also use `.env`.
 
 ## `recaptchaSiteKey`
 
-reCAPTCHA site key.  
+reCAPTCHA site key.\
 If this option is provided, automatically enable `AppCheck`.
 
 ## `authSSR`
-Whether to use Service Worker for the authenticate session management.  
-This option can be used without Admin SDK, but some features would be disabled.  
+
+Whether to use Service Worker for the authenticate session management.\
+This option can be used without Admin SDK, but some features would be disabled.\
 For security reasons, it is highly recommended to set Admin SDK credential, too.
 
 ::: tip
@@ -50,13 +55,16 @@ If you do Static Site Generation (`nuxi generate`), this option will automatical
 :::
 
 ## `adminSDKCredential`
-The credential of __Admin SDK__ or its path.
 
-The way to determine which credential to use:  
-1. Use Application Default Credentials if undefined (Read the file defined in `GOOGLE_APPLICATION_CREDENTIALS`)
-2. Parse this value as JSON
-3. Parse this value as the file path of the JSON file
-4. Use this value as the credential
+The credential of **Admin SDK** or its path.
+
+The way to determine which credential to use:
+
+1.  Use Application Default Credentials if undefined (Read the file defined in `GOOGLE_APPLICATION_CREDENTIALS`)
+2.  Parse this value as JSON
+3.  Parse this value as the file path of the JSON file
+4.  Use this value as the credential
 
 ## `disableAdminSDK`
+
 Whether to disable Admin SDK.

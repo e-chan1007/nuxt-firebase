@@ -1,4 +1,5 @@
 # useAuth
+
 ::: tip
 This composable is available on both the client and server sides.
 :::
@@ -10,6 +11,7 @@ Even though you can know who the user is on the server by enabling [`authSSR`](.
 :::
 
 ## Example
+
 ```ts
 const { auth, currentUser, isAuthenticated } = useAuth();
 
@@ -20,6 +22,7 @@ if (isAuthenticated) {
 ```
 
 To use in server routes(`~/server/`), you should use [`useServerAuth`](./use-server-auth) instead of `useAuth`.
+
 ```ts
 import { useServerAuth } from '#firebase/server'
 const { currentUser, isAuthenticated } = useServerAuth()

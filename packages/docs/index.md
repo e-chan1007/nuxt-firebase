@@ -18,7 +18,9 @@ features:
 ---
 
 ## Setup
-1. Install dependencies
+
+1.  Install dependencies
+
 ```sh
 # npm
 npm install -D firebase firebase-admin @e-chan1007/nuxt-firebase
@@ -27,9 +29,11 @@ yarn add -D firebase firebase-admin @e-chan1007/nuxt-firebase
 # pnpm
 pnpm add -D firebase firebase-admin @e-chan1007/nuxt-firebase
 ```
+
 Don't forget to install `firebase` and `firebase-admin`.
 
-2. Add this module to the Nuxt config
+2.  Add this module to the Nuxt config
+
 ```ts
 export default defineNuxtConfig({
   modules: [
@@ -41,7 +45,8 @@ export default defineNuxtConfig({
 })
 ```
 
-3. Use in your pages, components or server routes
+3.  Use in your pages, components or server routes
+
 ```vue
 <template>
   <p>Hello {{ currentUser?.displayName }}!</p>
