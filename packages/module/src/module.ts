@@ -28,7 +28,7 @@ export interface ModuleOptions {
   authSSR?: boolean
 
   /**
-   * Credential path of Admin SDK
+   * Credential (path) of Admin SDK
    * 
    * The way to determine which credential to use:  
    * 1. Use Application Default Credentials if undefined (`GOOGLE_APPLICATION_CREDENTIALS`)  
@@ -36,11 +36,10 @@ export interface ModuleOptions {
    * 3. Parse this value as the file path of the JSON file  
    * 4. Use this value as the credential
    */
-  adminSDKCredential?: string | ServiceAccount,
+  adminSDKCredential?: string | ServiceAccount
 
   /**
    * Whether to disable Admin SDK  
-   * If the credential is unavailable, SDK will be disabled automatically.  
    * Even if the credential is available, enabling this parameter makes SDK disabled.
    * @default false
    */
