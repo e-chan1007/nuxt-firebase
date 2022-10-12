@@ -1,5 +1,5 @@
 import { Ref, ComputedRef, computed } from 'vue'
-import { useState } from 'nuxt/app'
+import { useNuxtApp, useState } from 'nuxt/app'
 import { getAuth } from 'firebase/auth'
 import type { Auth as FirebaseAuth } from 'firebase/auth'
 import type { AuthUser } from '../types'

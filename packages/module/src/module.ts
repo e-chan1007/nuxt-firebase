@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url'
-import { addImportsDir, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule, extendViteConfig } from '@nuxt/kit'
+import { addImports, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule, resolveModule } from '@nuxt/kit'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { getJSTemplateContents } from './util/template'
 
@@ -69,9 +69,11 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     /* Composables */
-    addImportsDir(resolve('composables'))
     const composableNames = ['useAuth', 'useFirebase', 'useFirebaseAdmin']
     const serverComposableNames = ['useFirebase', 'useFirebaseAdmin', 'useServerAuth']
+
+    addImports([...composableNames, ...serverComposableNames].map(name => ({ name, from: resolve(`composables/${name}`) })))
+
     const composablesTypePath = addTemplate({
       filename: 'types/firebase.d.ts',
       getContents: () => [
@@ -85,8 +87,8 @@ export default defineNuxtModule<ModuleOptions>({
     }).dst
     nuxt.hook('nitro:config', (nitroConfig) => {
       nitroConfig.alias = nitroConfig.alias ?? {}
-      nitroConfig.alias['#firebase'] = resolve('composables')
-      nitroConfig.alias['#firebase/server'] = resolve('composables')
+      nitroConfig.alias['#firebase'] = resolveModule('./composables', { paths: resolve() })
+      nitroConfig.alias['#firebase/server'] = resolveModule('./composables/server', { paths: resolve() })
     })
     nuxt.hook('prepare:types', (options) => {
       options.references.push({ path: composablesTypePath })
