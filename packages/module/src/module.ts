@@ -1,15 +1,14 @@
 import { fileURLToPath } from 'url'
 import { addImportsDir, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule, extendViteConfig } from '@nuxt/kit'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
-import type { ServiceAccount } from 'firebase-admin'
-import type { FirebaseOptions } from 'firebase/app'
 import { getJSTemplateContents } from './util/template'
 
 export interface ModuleOptions {
   /**
    * SDK configuration(Object or JSON string)
    */
-  config?: FirebaseOptions | string,
+  // TODO: Change `object` to `FirebaseOptions` and success to build
+  config?: string | object,
   /**
    * Prefix of environment variables that includes SDK configuration
    */
@@ -36,7 +35,7 @@ export interface ModuleOptions {
    * 3. Parse this value as the file path of the JSON file  
    * 4. Use this value as the credential
    */
-  adminSDKCredential?: string | ServiceAccount
+  adminSDKCredential?: string | object
 
   /**
    * Whether to disable Admin SDK  
@@ -94,13 +93,13 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     /* Client SDK */
-    let firebaseConfig: FirebaseOptions | undefined
+    let firebaseConfig: object | undefined
     try {
       firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG!)
     } catch (e) {}
     if (typeof firebaseConfig === 'undefined') {
       if (typeof options.configEnvPrefix === 'string') {
-        const envMap: Record<keyof FirebaseOptions, string> = {
+        const envMap: Record<string, string> = {
           apiKey: 'API_KEY',
           authDomain: 'AUTH_DOMAIN',
           databaseURL: 'DATABASE_URL',
@@ -113,10 +112,10 @@ export default defineNuxtModule<ModuleOptions>({
         firebaseConfig = Object.fromEntries(Object.entries(envMap).map(([configKey, envKey]) => [configKey, process.env[options.configEnvPrefix + envKey]]))
       } else {
         if (typeof options.config === 'string') { options.config = JSON.parse(options.config) }
-        firebaseConfig = options.config as FirebaseOptions
+        firebaseConfig = options.config as object
       }
     }
-    nuxt.options.runtimeConfig.__FIREBASE_CONFIG__ = firebaseConfig
+    nuxt.options.runtimeConfig.__FIREBASE_CONFIG__ = firebaseConfig as any
 
     const recaptchaSiteKey = process.env[options.configEnvPrefix + 'RECAPTCHA_SITE_KEY'] ?? options.recaptchaSiteKey
 
