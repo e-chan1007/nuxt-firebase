@@ -10,7 +10,8 @@
 		"vscode": {
 			"extensions": [
 				"dbaeumer.vscode-eslint",
-				"Vue.volar"
+				"Vue.volar",
+				"unifiedjs.vscode-remark"
 			]
 		}
 	},
