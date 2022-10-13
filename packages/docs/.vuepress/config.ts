@@ -46,11 +46,11 @@ export default defineUserConfig({
             text: 'Guide',
             children: [
               { text: 'はじめる', link: '/ja/guide/getting-started' },
-              { text: 'Configuration', link: '/ja/guide/configuration' }
+              { text: 'コンフィギュレーション', link: '/ja/guide/configuration' }
             ]
           },
           {
-            text: 'References',
+            text: 'リファレンス',
             children: [
               { text: 'useFirebase', link: '/ja/reference/use-firebase' },
               { text: 'useFirebaseAdmin', link: '/ja/reference/use-firebase-admin' },
