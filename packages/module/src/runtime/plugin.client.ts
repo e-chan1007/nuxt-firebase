@@ -3,29 +3,28 @@ import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 
 // Variables that will be injected by module
-/* eslint-disable no-var */
-declare module './plugin.client' {
-  var authSSR: boolean
-  var swPath: string
-  var firebaseConfig: FirebaseOptions
-  var recaptchaSiteKey: string
+interface Options {
+  authSSR: boolean
+  swPath: string
+  firebaseConfig: FirebaseOptions
+  recaptchaSiteKey: string
 }
-/* eslint-enable no-var */
 
-/* [ Inject Variables Here ] */
+// @ts-ignore
+const options: Options = {}
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { baseURL } = useRuntimeConfig().app
-  const app = initializeApp(firebaseConfig)
+  const app = initializeApp(options.firebaseConfig)
 
-  if (recaptchaSiteKey) {
+  if (options.recaptchaSiteKey) {
     initializeAppCheck(app, {
-      provider: new ReCaptchaV3Provider(recaptchaSiteKey),
+      provider: new ReCaptchaV3Provider(options.recaptchaSiteKey),
       isTokenAutoRefreshEnabled: true
     })
   }
 
-  if (authSSR && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.register(swPath, { scope: (baseURL + '/').replace(/\/\/$/, '/'), type: 'module' })
+  if (options.authSSR && 'serviceWorker' in navigator) {
+    navigator.serviceWorker.register(options.swPath, { scope: (baseURL + '/').replace(/\/\/$/, '/'), type: 'module' })
   }
 })

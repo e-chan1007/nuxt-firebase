@@ -4,24 +4,23 @@ import { defineNuxtPlugin, useState } from 'nuxt/app'
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 
 // Variables that will be injected by module
-/* eslint-disable no-var */
-declare module './plugin.server' {
-  var adminSDKCredential: string
-  var authSSR: boolean
-  var disableAdminSDK: boolean
-  var firebaseConfig: FirebaseOptions
-  var recaptchaSiteKey: string
+interface Options {
+  adminSDKCredential: string
+  authSSR: boolean
+  disableAdminSDK: boolean
+  firebaseConfig: FirebaseOptions
+  recaptchaSiteKey: string
 }
-/* eslint-enable no-var */
 
-/* [ Inject Variables Here ] */
+// @ts-ignore
+const options: Options = {}
 
 const tryInitClientSDK = (): boolean => {
   try {
     getApp()
   } catch (e) {
     try {
-      initializeClientApp(firebaseConfig)
+      initializeClientApp(options.firebaseConfig)
     } catch (e) {
       return false
     }
@@ -34,13 +33,13 @@ const authSSRPlugin = defineNuxtPlugin((nuxtApp) => {
   currentUser.value = nuxtApp.ssrContext?.__FIREBASE_AUTH_CURRENT_USER__ ?? null
 })
 
-export default defineNuxtPlugin(async (nuxtApp) => {
+export default defineNuxtPlugin((nuxtApp) => {
   tryInitClientSDK()
-  if (recaptchaSiteKey) {
+  if (options.recaptchaSiteKey) {
     initializeAppCheck(getApp(), {
-      provider: new ReCaptchaV3Provider(recaptchaSiteKey),
+      provider: new ReCaptchaV3Provider(options.recaptchaSiteKey),
       isTokenAutoRefreshEnabled: true
     })
   }
-  if (authSSR) { await authSSRPlugin(nuxtApp) }
+  if (options.authSSR) { authSSRPlugin(nuxtApp) }
 })

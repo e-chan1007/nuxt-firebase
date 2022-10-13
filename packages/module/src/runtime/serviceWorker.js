@@ -1,9 +1,11 @@
+/// <reference lib="WebWorker" />
+
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js'
 import { getAuth, onAuthStateChanged, getIdToken } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js'
 
-/* [ Inject Variables Here ] */
+const options = {}
 
-initializeApp(firebaseConfig)
+initializeApp(options.firebaseConfig)
 
 const auth = getAuth()
 const getIdTokenPromise = () => {
@@ -26,11 +28,10 @@ const getIdTokenPromise = () => {
 const getOriginFromUrl = url => new URL(url).origin
 
 self.addEventListener('fetch', (event) => {
-  /** @type {FetchEvent} */
+  /** @type { FetchEvent } */
   const evt = event
 
   const requestProcessor = (idToken) => {
-    /** @type {Request} */
     let req = evt.request
     if (self.location.origin === getOriginFromUrl(evt.request.url) &&
         (self.location.protocol === 'https:' ||

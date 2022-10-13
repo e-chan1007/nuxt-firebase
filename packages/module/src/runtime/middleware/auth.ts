@@ -5,28 +5,27 @@ import * as jwt from 'jsonwebtoken'
 import type { AuthUser } from '../types'
 
 // Variables that will be injected by module
-/* eslint-disable no-var */
-declare module './auth' {
-  var adminSDKCredential: string
-  var authSSR: boolean
-  var disableAdminSDK: boolean
+interface Options {
+  adminSDKCredential: string
+  authSSR: boolean
+  disableAdminSDK: boolean
 }
-/* eslint-enable no-var */
 
-/* [ Inject Variables Here ] */
+// @ts-ignore
+const options: Options = {}
 
 const tryInitAdminSDK = (): boolean => {
   try {
     getApp()
   } catch (e) {
-    if (typeof adminSDKCredential === 'undefined') {
+    if (typeof options.adminSDKCredential === 'undefined') {
       initializeAdminApp({ credential: applicationDefault() })
     } else {
       try {
-        initializeAdminApp({ credential: cert(JSON.parse(adminSDKCredential)) })
+        initializeAdminApp({ credential: cert(JSON.parse(options.adminSDKCredential)) })
       } catch (e) {
         try {
-          initializeAdminApp({ credential: cert(adminSDKCredential) })
+          initializeAdminApp({ credential: cert(options.adminSDKCredential) })
         } catch (e) {
           return false
         }
@@ -41,7 +40,7 @@ export default defineEventHandler(async (event) => {
   if (!idToken) { return }
   let currentUser: AuthUser | null = null
 
-  if (disableAdminSDK) {
+  if (options.disableAdminSDK) {
     // Fallback to parse JWT
     const decodedJWT = jwt.decode(idToken)
     if (!decodedJWT || typeof decodedJWT === 'string') { return }

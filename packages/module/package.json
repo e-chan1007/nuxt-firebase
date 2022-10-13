@@ -1,7 +1,7 @@
 {
   "name": "@e-chan1007/nuxt-firebase-module",
   "scripts": {
-    "prepack": "nuxt-module-build && cp -LRT ./dist ../../dist",
-    "dev:prepare": "nuxt-module-build --stub && cp -LRT ./dist ../../dist"
+    "prepack": "rm -rf ../../dist && nuxt-module-build && cp -LRT ./dist ../../dist",
+    "dev:prepare": "rm -rf ../../dist && nuxt-module-build --stub && cp -LRT ./dist ../../dist"
   }
 }

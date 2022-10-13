@@ -54,6 +54,7 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     config: {},
     authSSR: true,
+    recaptchaSiteKey: '',
     disableAdminSDK: false
   },
   setup (options, nuxt) {
@@ -123,7 +124,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     addPluginTemplate({
       filename: 'plugin.client.ts',
-      getContents: getJSTemplateContents(resolve('plugin.client.ts')),
+      getContents: getJSTemplateContents(resolve('plugin.client')),
       options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swPath: resolveURL('firebase-sw.js') }
     })
 
@@ -132,7 +133,7 @@ export default defineNuxtModule<ModuleOptions>({
       const swPath = addTemplate({
         write: true,
         filename: 'firebase-sw.js',
-        getContents: getJSTemplateContents(resolve('serviceWorker.js')),
+        getContents: getJSTemplateContents(resolve('serviceWorker')),
         options: {
           firebaseConfig
         }
@@ -148,7 +149,7 @@ export default defineNuxtModule<ModuleOptions>({
       const middlewarePath = addTemplate({
         write: true,
         filename: 'middleware/auth.ts',
-        getContents: getJSTemplateContents(resolve('middleware/auth.ts')),
+        getContents: getJSTemplateContents(resolve('middleware/auth')),
         options
       }).dst
       nuxt.options.serverHandlers.push({ handler: middlewarePath })
@@ -158,7 +159,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.runtimeConfig.__FIREBASE_ADMIN_SDK_CREDENTIAL__ = options.adminSDKCredential
     addPluginTemplate({
       filename: 'plugin.server.ts',
-      getContents: getJSTemplateContents(resolve('plugin.server.ts')),
+      getContents: getJSTemplateContents(resolve('plugin.server')),
       options: { ...options, firebaseConfig }
     })
   }
