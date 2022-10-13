@@ -17,7 +17,7 @@ Don't forget to install `firebase` and `firebase-admin`.
 Versions listed below are not supported:
 
 *   Legacy (~ v8)
-*   v9.11.0 (doesn't have compatible with Nuxt)
+*   v9.11.0 (isn't compatible with Nuxt)
 
 :::
 
