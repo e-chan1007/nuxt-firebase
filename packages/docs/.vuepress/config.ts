@@ -41,7 +41,24 @@ export default defineUserConfig({
       },
       '/ja/': {
         selectLanguageName: '日本語',
-        editLinkText: 'このページを編集する'
+        sidebar: [
+          {
+            text: 'Guide',
+            children: [
+              { text: 'はじめる', link: '/ja/guide/getting-started' },
+              { text: 'Configuration', link: '/ja/guide/configuration' }
+            ]
+          },
+          {
+            text: 'References',
+            children: [
+              { text: 'useFirebase', link: '/ja/reference/use-firebase' },
+              { text: 'useFirebaseAdmin', link: '/ja/reference/use-firebase-admin' },
+              { text: 'useAuth', link: '/ja/reference/use-auth' },
+              { text: 'useServerAuth', link: '/ja/reference/use-server-auth' },
+            ]
+          }
+        ]
       }
     },
   })
