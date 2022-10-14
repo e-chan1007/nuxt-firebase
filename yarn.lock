@@ -611,7 +611,6 @@ __metadata:
     vuepress: next
   peerDependencies:
     firebase: ^9.12.0
-    firebase-admin: "*"
   languageName: unknown
   linkType: soft
 
