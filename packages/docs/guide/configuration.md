@@ -1,3 +1,7 @@
+---
+prev: ./getting-started.md
+---
+
 # Configuration
 
 ```ts

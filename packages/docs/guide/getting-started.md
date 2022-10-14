@@ -1,17 +1,22 @@
+---
+next: ./configuration.md
+---
+
 # Getting started
 
 ## Install
 
 ```sh
 # npm
-npm install -D firebase firebase-admin @e-chan1007/nuxt-firebase
+npm install -D firebase @e-chan1007/nuxt-firebase
 # yarn
-yarn add -D firebase firebase-admin @e-chan1007/nuxt-firebase
+yarn add -D firebase @e-chan1007/nuxt-firebase
 # pnpm
-pnpm add -D firebase firebase-admin @e-chan1007/nuxt-firebase
+pnpm add -D firebase @e-chan1007/nuxt-firebase
 ```
 
-Don't forget to install `firebase` and `firebase-admin`.
+Don't forget to install `firebase`.\
+If you want to use Admin SDK, you have to install `firebase-admin`, too.
 
 :::warning
 Versions listed below are not supported:

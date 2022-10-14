@@ -6,18 +6,20 @@
 
 Integrate [Firebase](https://firebase.google.com/) with Nuxt (3)
 
+**This module is not ready for production use.**
+
 ## Install
 
 ```sh
 # npm
-npm install -D firebase firebase-admin @e-chan1007/nuxt-firebase
+npm install -D firebase @e-chan1007/nuxt-firebase
 # yarn
-yarn add -D firebase firebase-admin @e-chan1007/nuxt-firebase
+yarn add -D firebase @e-chan1007/nuxt-firebase
 # pnpm
-pnpm add -D firebase firebase-admin @e-chan1007/nuxt-firebase
+pnpm add -D firebase @e-chan1007/nuxt-firebase
 ```
 
-Don't forget to install `firebase` and `firebase-admin`.
+Don't forget to install `firebase`.
 
 ## Setup
 

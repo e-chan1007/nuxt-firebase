@@ -12,9 +12,9 @@ features:
 - title: Nuxt3対応
   details: Vue 3で構築されており、Auto-importやComposablesによって非常に簡単に使用することができます。
 - title: Firebase v9 SDK対応
-  details: 新しいAPIサーフェイスは、アプリを小さくするためにツリーシェイクを可能にします。
+  details: 新しいAPI形式によって、アプリのバンドル後のサイズを小さく保つことができます。
 - title: SSRを用いた認証
-  details: Service Workerを使用することで、サーバーサイドやAPIルートでもIDを利用することができます。
+  details: Service Workerを使用することで、サーバーサイドやAPIルートでも認証情報を利用できます。
 ---
 
 ## 設定
@@ -23,16 +23,16 @@ features:
 
 ```sh
 # npm
-npm install -D firebase firebase-admin @e-chan1007/nuxt-firebase
+npm install -D firebase @e-chan1007/nuxt-firebase
 # yarn
-yarn add -D firebase firebase-admin @e-chan1007/nuxt-firebase
+yarn add -D firebase @e-chan1007/nuxt-firebase
 # pnpm
-pnpm add -D firebase firebase-admin @e-chan1007/nuxt-firebase
+pnpm add -D firebase @e-chan1007/nuxt-firebase
 ```
 
-`firebase` と `firebase-admin` のインストールを忘れないでください。
+`firebase` のインストールを忘れないでください。
 
-1.  このモジュールをNuxtのconfigに追加する
+2.  モジュールをNuxtの設定に追加する
 
 ```ts
 export default defineNuxtConfig({
@@ -45,7 +45,7 @@ export default defineNuxtConfig({
 })
 ```
 
-1.  ページ、コンポーネント、サーバールートで使用する
+3.  使用する
 
 ```vue
 <template>

@@ -20,6 +20,16 @@ export default defineUserConfig({
     locales: {
       '/': {
         selectLanguageName: 'English',
+        navbar: [
+          {
+            text: "Guide",
+            link: "/guide/getting-started"
+          },
+          {
+            text: "References",
+            link: "/references/use-firebase"
+          }
+        ],
         sidebar: [
           {
             text: 'Guide',
@@ -31,31 +41,41 @@ export default defineUserConfig({
           {
             text: 'References',
             children: [
-              { text: 'useFirebase', link: '/reference/use-firebase' },
-              { text: 'useFirebaseAdmin', link: '/reference/use-firebase-admin' },
-              { text: 'useAuth', link: '/reference/use-auth' },
-              { text: 'useServerAuth', link: '/reference/use-server-auth' },
+              { text: 'useFirebase', link: '/references/use-firebase' },
+              { text: 'useFirebaseAdmin', link: '/references/use-firebase-admin' },
+              { text: 'useAuth', link: '/references/use-auth' },
+              { text: 'useServerAuth', link: '/references/use-server-auth' },
             ]
           }
         ]
       },
       '/ja/': {
         selectLanguageName: '日本語',
+        navbar: [
+          {
+            text: "ガイド",
+            link: "/ja/guide/getting-started"
+          },
+          {
+            text: "リファレンス",
+            link: "/ja/references/use-firebase"
+          }
+        ],
         sidebar: [
           {
-            text: 'Guide',
+            text: 'ガイド',
             children: [
               { text: 'はじめる', link: '/ja/guide/getting-started' },
-              { text: 'コンフィギュレーション', link: '/ja/guide/configuration' }
+              { text: '設定', link: '/ja/guide/configuration' }
             ]
           },
           {
             text: 'リファレンス',
             children: [
-              { text: 'useFirebase', link: '/ja/reference/use-firebase' },
-              { text: 'useFirebaseAdmin', link: '/ja/reference/use-firebase-admin' },
-              { text: 'useAuth', link: '/ja/reference/use-auth' },
-              { text: 'useServerAuth', link: '/ja/reference/use-server-auth' },
+              { text: 'useFirebase', link: '/ja/references/use-firebase' },
+              { text: 'useFirebaseAdmin', link: '/ja/references/use-firebase-admin' },
+              { text: 'useAuth', link: '/ja/references/use-auth' },
+              { text: 'useServerAuth', link: '/ja/references/use-server-auth' },
             ]
           }
         ]
