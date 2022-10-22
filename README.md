@@ -6,8 +6,6 @@
 
 Integrate [Firebase](https://firebase.google.com/) with Nuxt (3)
 
-**This module is not ready for production use.**
-
 ## Install
 
 ```sh
