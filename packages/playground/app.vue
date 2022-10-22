@@ -1,8 +1,22 @@
 <template>
   <div>
-    Nuxt module playground!
+    <Navbar />
+    <div class="wrapper">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
   </div>
 </template>
 
-<script setup>
-</script>
+<style lang="scss">
+body {
+  margin: 0;
+}
+</style>
+
+<style lang="scss" scoped>
+.wrapper {
+  padding: 8px 32px;
+}
+</style>

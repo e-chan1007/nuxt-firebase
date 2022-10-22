@@ -41,6 +41,8 @@ FIREBASE_DATABASE_URL=value
 FIREBASE_MEASUREMENT_ID=value
 ```
 
+You might be able to omit some options which are for the service you don't use.
+
 You can also use `.env`.
 
 ## `recaptchaSiteKey`
@@ -68,6 +70,8 @@ The way to determine which credential to use:
 2.  Parse this value as JSON
 3.  Parse this value as the file path of the JSON file
 4.  Use this value as the credential
+
+**If you use Admin SDK, be careful not to publish the credential file. Make sure that the file is `gitignored`.**
 
 ## `disableAdminSDK`
 
