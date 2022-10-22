@@ -27,8 +27,8 @@ const DEFAULTS: ModuleOptions = {
 *   If `FIREBASE_CONFIG` env is available, parse the value as JSON and pass it to `initializeSDK(config)`.
 *   If `config` (as Object) is provided, pass the original value to `initializeSDK(config)`.
 *   If `config` (as String) is provided, parse the value as JSON and pass it to `initializeSDK(config)`.
-*   If `configPrefix` is provided, read the config from environment variables.
-    For example: (`configPrefix`=`FIREBASE_`)
+*   If `configEnvPrefix` is provided, read the config from environment variables.
+    For example: (`configEnvPrefix`=`FIREBASE_`)
 
 ```properties
 FIREBASE_API_KEY=value
@@ -49,6 +49,8 @@ You can also use `.env`.
 
 reCAPTCHA site key.\
 If this option is provided, automatically enable `AppCheck`.
+
+If `configEnvPrefix` is provided, read the value from `${configPrefix}RECAPTCHA_SITE_KEY`
 
 ## `authSSR`
 

@@ -51,6 +51,9 @@ export default defineUserConfig({
       },
       '/ja/': {
         selectLanguageName: '日本語',
+        editLinkText: 'このページを編集する',
+        lastUpdatedText: '最終更新',
+        contributorsText: '著者',
         navbar: [
           {
             text: "ガイド",
