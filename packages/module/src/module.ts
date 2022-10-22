@@ -50,7 +50,7 @@ export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'firebase',
     configKey: 'firebase',
-    compatibility: { nuxt: '^3.0.0-rc.11' }
+    compatibility: { nuxt: '^3.0.0-rc.12' }
   },
   defaults: {
     config: {},
