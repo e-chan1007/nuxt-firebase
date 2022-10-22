@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url'
-import { addImports, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule, resolveModule, tryResolveModule } from '@nuxt/kit'
+import { addImports, addPluginTemplate, addTemplate, addVitePlugin, checkNuxtCompatibility, createResolver, defineNuxtModule, resolveModule, tryResolveModule } from '@nuxt/kit'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { getJSTemplateContents } from './util/template'
 
@@ -149,12 +149,14 @@ export default defineNuxtModule<ModuleOptions>({
         }
       }).dst
 
-      viteStaticCopy({
-        targets: [{
-          src: swPath,
-          dest: baseURL.slice(1)
-        }]
-      }).forEach(plugin => addVitePlugin(plugin))
+      addVitePlugin(
+        viteStaticCopy({
+          targets: [{
+            src: swPath,
+            dest: (nuxt.options.dev ? '__url/' : '') + baseURL.slice(1)
+          }]
+        })
+      )
 
       const middlewarePath = addTemplate({
         write: true,
