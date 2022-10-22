@@ -5,7 +5,7 @@
     "firebase",
     "nuxt"
   ],
-  "version": "1.0.1-rc.1",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/e-chan1007/nuxt-firebase"
@@ -63,7 +63,7 @@
     "remark-lint": "^9.1.1",
     "remark-preset-lint-recommended": "^6.1.2",
     "standard-version": "^9.5.0",
-    "vuepress": "2.0.0-beta.51"
+    "vuepress": "2.0.0-beta.50"
   },
   "peerDependencies": {
     "firebase": "^9.12.0"
