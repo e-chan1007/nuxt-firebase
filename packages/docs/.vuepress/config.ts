@@ -4,6 +4,9 @@ export default defineUserConfig({
   base: (process.env.BASE_URL as `/${string}/` | undefined) || '/',
   title: 'Nuxt Firebase',
   description: 'Integrate Firebase with Nuxt (3)',
+  head: [
+    ['meta', { name: 'google-site-verification', content: 'rzH-lFve_O6XXzhNiijEf4BZjsqeP_fGozFLwK1T-lQ' }]
+  ],
   locales: {
     '/': {
       lang: 'en-US'
@@ -22,12 +25,12 @@ export default defineUserConfig({
         selectLanguageName: 'English',
         navbar: [
           {
-            text: "Guide",
-            link: "/guide/getting-started"
+            text: 'Guide',
+            link: '/guide/getting-started'
           },
           {
-            text: "References",
-            link: "/references/use-firebase"
+            text: 'References',
+            link: '/references/use-firebase'
           }
         ],
         sidebar: [
@@ -56,12 +59,12 @@ export default defineUserConfig({
         contributorsText: '著者',
         navbar: [
           {
-            text: "ガイド",
-            link: "/ja/guide/getting-started"
+            text: 'ガイド',
+            link: '/ja/guide/getting-started'
           },
           {
-            text: "リファレンス",
-            link: "/ja/references/use-firebase"
+            text: 'リファレンス',
+            link: '/ja/references/use-firebase'
           }
         ],
         sidebar: [
