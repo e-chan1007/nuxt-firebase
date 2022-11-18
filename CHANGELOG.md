@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/e-chan1007/nuxt-firebase/compare/v1.0.1...v1.1.0) (2022-11-18)
+
+### Features
+
+*   upgrade nuxt ([de0a6f5](https://github.com/e-chan1007/nuxt-firebase/commit/de0a6f5e1d44c3dcb4b9aa5cf2e25cbe4212668e))
+
 ### [1.0.1](https://github.com/e-chan1007/nuxt-firebase/compare/v1.0.1-rc.1...v1.0.1) (2022-10-22)
 
 ### Bug Fixes
