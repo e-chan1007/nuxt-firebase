@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'url'
-import { addImports, addPluginTemplate, addTemplate, addVitePlugin, checkNuxtCompatibility, createResolver, defineNuxtModule, resolveModule, tryResolveModule } from '@nuxt/kit'
+import { createRequire } from 'node:module'
+import { addImports, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { getJSTemplateContents } from './util/template'
 
@@ -50,7 +51,7 @@ export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'firebase',
     configKey: 'firebase',
-    compatibility: { nuxt: '^3.0.0-rc.12' }
+    compatibility: { nuxt: '^3.0.0' }
   },
   defaults: {
     config: {},
@@ -62,6 +63,7 @@ export default defineNuxtModule<ModuleOptions>({
     const baseURL = nuxt.options.app.baseURL
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     const { resolve } = createResolver(runtimeDir)
+    const require = createRequire(import.meta.url)
     const { resolve: resolveURL } = createResolver(baseURL)
     nuxt.options.build.transpile.push(runtimeDir)
 
@@ -71,7 +73,9 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     // If `firebase-admin` is not installed, disable features
-    if (!tryResolveModule('firebase-admin')) {
+    try {
+      require.resolve('firebase-admin')
+    } catch (e) {
       options.disableAdminSDK = true
     }
 
@@ -98,8 +102,8 @@ export default defineNuxtModule<ModuleOptions>({
     }).dst
     nuxt.hook('nitro:config', (nitroConfig) => {
       nitroConfig.alias = nitroConfig.alias ?? {}
-      nitroConfig.alias['#firebase'] = resolveModule(options.disableAdminSDK ? './composables' : './composables/index.withAdmin', { paths: resolve() })
-      nitroConfig.alias['#firebase/server'] = resolveModule(options.disableAdminSDK ? './composables/server' : './composables/server.withAdmin', { paths: resolve() })
+      nitroConfig.alias['#firebase'] = resolve(options.disableAdminSDK ? './composables' : './composables/index.withAdmin')
+      nitroConfig.alias['#firebase/server'] = resolve(options.disableAdminSDK ? './composables/server' : './composables/server.withAdmin')
     })
     nuxt.hook('prepare:types', (options) => {
       options.references.push({ path: composablesTypePath })
