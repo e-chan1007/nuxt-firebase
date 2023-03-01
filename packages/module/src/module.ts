@@ -9,7 +9,7 @@ export interface ModuleOptions {
    * SDK configuration(Object or JSON string)
    */
   // TODO: Change `object` to `FirebaseOptions` and success to build
-  config?: string | object,
+  config: string | object,
   /**
    * Prefix of environment variables that includes SDK configuration
    */
@@ -25,7 +25,7 @@ export interface ModuleOptions {
    * @default true
    * @see https://firebase.google.com/docs/auth/web/service-worker-sessions
    */
-  authSSR?: boolean
+  authSSR: boolean
 
   /**
    * Credential (path) of Admin SDK
@@ -44,12 +44,12 @@ export interface ModuleOptions {
    * If `firebase-admin` is not installed, disabled automatically.
    * @default false
    */
-  disableAdminSDK?: boolean
+  disableAdminSDK: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'firebase',
+    name: '@e-chan1007/nuxt-firebase',
     configKey: 'firebase',
     compatibility: { nuxt: '^3.0.0' }
   },
@@ -139,14 +139,14 @@ export default defineNuxtModule<ModuleOptions>({
     addPluginTemplate({
       filename: 'plugin.client.ts',
       getContents: getJSTemplateContents(resolve('plugin.client')),
-      options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swPath: resolveURL('firebase-sw.js') }
+      options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swPath: resolveURL('nuxt-firebase-sw.js') }
     })
 
     /* Service Worker */
     if (options.authSSR) {
       const swPath = addTemplate({
         write: true,
-        filename: 'firebase-sw.js',
+        filename: 'nuxt-firebase-sw.js',
         getContents: getJSTemplateContents(resolve('serviceWorker')),
         options: {
           firebaseConfig
@@ -157,7 +157,7 @@ export default defineNuxtModule<ModuleOptions>({
         viteStaticCopy({
           targets: [{
             src: swPath,
-            dest: (nuxt.options.dev ? '__url/' : '') + baseURL.slice(1)
+            dest: baseURL.slice(1)
           }]
         })
       )

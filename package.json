@@ -41,22 +41,22 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0",
+    "@nuxt/kit": "^3.2.3",
     "jsonwebtoken": "^8.5.1",
-    "vite-plugin-static-copy": "^0.12.0"
+    "vite-plugin-static-copy": "^0.13.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@nuxt/module-builder": "latest",
-    "@nuxt/schema": "^3.0.0",
+    "@nuxt/schema": "^3.2.3",
     "@nuxtjs/eslint-config-typescript": "latest",
     "@types/jsonwebtoken": "^8.5.9",
-    "eslint": "latest",
-    "firebase": "^9.14.0",
-    "firebase-admin": "^11.3.0",
-    "husky": "^8.0.2",
-    "nuxt": "^3.0.0",
+    "eslint": "^8.35.0",
+    "firebase": "^9.17.1",
+    "firebase-admin": "^11.5.0",
+    "husky": "^8.0.3",
+    "nuxt": "^3.2.3",
     "pinst": "^3.0.0",
     "remark-cli": "^11.0.0",
     "remark-frontmatter": "^4.0.1",
@@ -81,5 +81,5 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@3.2.4"
+  "packageManager": "yarn@3.4.1"
 }

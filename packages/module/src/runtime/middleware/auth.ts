@@ -1,9 +1,9 @@
-import { defineEventHandler } from 'h3'
+import { defineEventHandler, getHeader } from 'h3'
 import * as jwt from 'jsonwebtoken'
 import type { AuthUser } from '../types'
 
 export default defineEventHandler((event) => {
-  const idToken = event.req.headers.authorization?.split(' ')[1]
+  const idToken = getHeader(event, 'authorization')?.split(' ')[1]
   if (!idToken) { return }
   let currentUser: AuthUser | null = null
 
