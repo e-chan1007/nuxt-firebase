@@ -77,7 +77,7 @@ Service Workerを利用したセッション管理をするか
 3.  設定値を認証情報が書かれたJSONファイルへのパスとして処理
 4.  このオプションをそのまま認証情報として利用
 
-**Admin SDKの認証情報が公開されないように注意してください。`.gitignore`にも追記をお忘れなく。**
+**Admin SDKの認証情報が公開されないように注意してください。`.gitignore`への追記もお忘れなく。**
 
 ## `disableAdminSDK`
 
@@ -89,4 +89,6 @@ Admin SDKを無効化します。
 
 ## `vapidKey`
 
-FCM用のVAPID (Voluntary Application Server Identification)鍵を指定します。
+FCM用のVAPID (Voluntary Application Server Identification)鍵
+
+`configEnvPrefix`が設定されている場合は、環境変数`${configEnvPrefix}VAPID_KEY`から値を取得します。

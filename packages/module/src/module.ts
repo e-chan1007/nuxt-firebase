@@ -148,6 +148,7 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }
     nuxt.options.runtimeConfig.__FIREBASE_CONFIG__ = firebaseConfig as any
+    if (process.env[options.configEnvPrefix + 'VAPID_KEY']) { options.vapidKey ??= process.env[options.configEnvPrefix + 'VAPID_KEY'] }
     if (options.vapidKey) { nuxt.options.runtimeConfig.__FIREBASE_VAPID_KEY__ = options.vapidKey }
 
     const recaptchaSiteKey = process.env[options.configEnvPrefix + 'RECAPTCHA_SITE_KEY'] ?? options.recaptchaSiteKey

@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     FirebaseModule
   ],
   firebase: {
-    configEnvPrefix: 'FIREBASE_'
+    configEnvPrefix: 'FIREBASE_',
+    injectMessagingServiceWorker: true
   }
 })

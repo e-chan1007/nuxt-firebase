@@ -89,3 +89,4 @@ Whether to use builtin service worker for Cloud Messaging.
 ## `vapidKey`
 
 VAPID (Voluntary Application Server Identification) key for Cloud Messaging
+If `configEnvPrefix` is provided, read the value from `${configPrefix}VAPID_KEY`

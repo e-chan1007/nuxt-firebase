@@ -1,10 +1,10 @@
-<script setup>
+<script lang="ts" setup>
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 const { auth } = useAuth()
 
 // You can sign in by using `signInWithPopup` imported from `firebase/auth`:
-const signIn = () => signInWithPopup(auth, new GoogleAuthProvider()).then(() => navigateTo('/user'))
+const signIn = () => signInWithPopup(auth!, new GoogleAuthProvider()).then(() => { navigateTo('/user') })
 
 </script>
 
