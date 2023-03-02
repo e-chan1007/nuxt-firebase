@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.2...v1.1.3) (2023-03-02)
+
+### ⚠ BREAKING CHANGES
+
+*   change boolean option names
+
+### Features
+
+*   add devtools ([2a3baed](https://github.com/e-chan1007/nuxt-firebase/commit/2a3baed5e0c4999a0c9d92383e91a333727f07ff))
+
+*   change boolean option names ([3e37b42](https://github.com/e-chan1007/nuxt-firebase/commit/3e37b42d49bacbc99e63c3a20c38855b4ee4c154))
+
 ### [1.1.2](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.1...v1.1.2) (2023-03-02)
 
 ### Bug Fixes
