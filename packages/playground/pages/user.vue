@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { definePageMeta, useAuth } from '#imports'
+
 const { currentUser } = useAuth()
 
 definePageMeta({

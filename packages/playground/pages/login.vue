@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { navigateTo, useAuth } from '#imports'
 
 const { auth } = useAuth()
 

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { getMessaging, MessagePayload, onMessage } from 'firebase/messaging'
+import { ref, onMounted } from '#imports'
 
 const notifications = ref<MessagePayload[]>([])
 onMounted(() => {

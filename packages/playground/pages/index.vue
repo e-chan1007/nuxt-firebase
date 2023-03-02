@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref, onMounted, useFCMToken } from '#imports'
+
 const fcmToken = ref()
 onMounted(() => {
   Notification.requestPermission().then(async (permission) => {

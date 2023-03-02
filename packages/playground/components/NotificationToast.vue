@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { MessagePayload } from 'firebase/messaging'
+import { watch } from '#imports'
 
 const props = defineProps<{ modelValue: MessagePayload[]}>()
 const emit = defineEmits<{(event: 'update:modelValue', value: MessagePayload[]): void }>()

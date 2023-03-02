@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { signOut } from 'firebase/auth'
+import { navigateTo, useAuth } from '#imports'
 
 // Needless to say, you can use `useAuth` in components:
 const { auth, currentUser } = useAuth()
