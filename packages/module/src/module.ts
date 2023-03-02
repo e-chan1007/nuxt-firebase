@@ -52,7 +52,7 @@ export interface ModuleOptions {
    * If you want to use the service worker that you made, keep this option `false`.
    * @default false
    */
-  injectMessagingServiceWorker: false,
+  injectMessagingServiceWorker: boolean,
 
   /**
    * VAPID (Voluntary Application Server Identification) key for Cloud Messaging
