@@ -3,6 +3,7 @@ import { createRequire } from 'node:module'
 import { addImports, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { getJSTemplateContents } from './util/template'
+import { setupServiceWorkerBuilder } from './serviceworker-builder'
 
 export interface ModuleOptions {
   /**
@@ -59,12 +60,13 @@ export default defineNuxtModule<ModuleOptions>({
     recaptchaSiteKey: '',
     disableAdminSDK: false
   },
-  setup (options, nuxt) {
+  async setup (options, nuxt) {
     const baseURL = nuxt.options.app.baseURL
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-    const { resolve } = createResolver(runtimeDir)
     const require = createRequire(import.meta.url)
+    const { resolve } = createResolver(runtimeDir)
     const { resolve: resolveURL } = createResolver(baseURL)
+
     nuxt.options.build.transpile.push(runtimeDir)
 
     // If `generate`, disable all SSR features
@@ -139,28 +141,12 @@ export default defineNuxtModule<ModuleOptions>({
     addPluginTemplate({
       filename: 'plugin.client.ts',
       getContents: getJSTemplateContents(resolve('plugin.client')),
-      options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swPath: resolveURL('nuxt-firebase-sw.js') }
+      options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swPath: resolveURL('nuxt-firebase-sw.js'), swScope: baseURL }
     })
 
     /* Service Worker */
     if (options.authSSR) {
-      const swPath = addTemplate({
-        write: true,
-        filename: 'nuxt-firebase-sw.js',
-        getContents: getJSTemplateContents(resolve('serviceWorker')),
-        options: {
-          firebaseConfig
-        }
-      }).dst
-
-      addVitePlugin(
-        viteStaticCopy({
-          targets: [{
-            src: swPath,
-            dest: baseURL.slice(1)
-          }]
-        })
-      )
+      await setupServiceWorkerBuilder(nuxt, resolve, resolveURL, firebaseConfig)
 
       const middlewarePath = addTemplate({
         write: true,

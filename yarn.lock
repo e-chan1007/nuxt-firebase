@@ -1019,6 +1019,7 @@ __metadata:
     "@nuxt/schema": ^3.2.3
     "@nuxtjs/eslint-config-typescript": latest
     "@types/jsonwebtoken": ^8.5.9
+    "@types/serviceworker": ^0.0.62
     eslint: ^8.35.0
     firebase: ^9.17.1
     firebase-admin: ^11.5.0
@@ -3169,6 +3170,13 @@ __metadata:
     "@types/mime": "*"
     "@types/node": "*"
   checksum: b6ac93d471fb0f53ddcac1f9b67572a09cd62806f7db5855244b28f6f421139626f24799392566e97d1ffc61b12f9de7f30380c39fcae3c8a161fe161d44edf2
+  languageName: node
+  linkType: hard
+
+"@types/serviceworker@npm:^0.0.62":
+  version: 0.0.62
+  resolution: "@types/serviceworker@npm:0.0.62"
+  checksum: bb14e08ad52ceff428e77c77189294df1fb7099bd9613bf8bfe9336b40eee17359761f5d23f415be1a8d4d27b0f69c11f1ffe699e16d8dde947ef5410c2d9572
   languageName: node
   linkType: hard
 

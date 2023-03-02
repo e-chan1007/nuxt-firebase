@@ -5,16 +5,16 @@ import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 // Variables that will be injected by module
 interface Options {
   authSSR: boolean
-  swPath: string
+  swPath: string,
+  swScope: string,
   firebaseConfig: FirebaseOptions
   recaptchaSiteKey: string
 }
 
-// @ts-ignore
+// @ts-expect-error injected later
 const options: Options = {}
 
-export default defineNuxtPlugin((nuxtApp) => {
-  const { baseURL } = useRuntimeConfig().app
+export default defineNuxtPlugin(() => {
   const app = initializeApp(options.firebaseConfig)
 
   if (options.recaptchaSiteKey) {
@@ -25,6 +25,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   if (options.authSSR && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.register(options.swPath, { scope: (baseURL + '/').replace(/\/\/$/, '/'), type: 'module' })
+    navigator.serviceWorker.register(options.swPath, { scope: options.swScope, type: 'module' })
   }
 })

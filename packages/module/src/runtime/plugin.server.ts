@@ -12,7 +12,7 @@ interface Options {
   recaptchaSiteKey: string
 }
 
-// @ts-ignore
+// @ts-expect-error injected later
 const options: Options = {}
 
 const tryInitClientSDK = (): boolean => {

@@ -52,6 +52,7 @@
     "@nuxt/schema": "^3.2.3",
     "@nuxtjs/eslint-config-typescript": "latest",
     "@types/jsonwebtoken": "^8.5.9",
+    "@types/serviceworker": "^0.0.62",
     "eslint": "^8.35.0",
     "firebase": "^9.17.1",
     "firebase-admin": "^11.5.0",
