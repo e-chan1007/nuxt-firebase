@@ -7,7 +7,7 @@
 `auth` インスタンスとリアクティブな `currentUser`と `isAuthenticated`を取得します。`getAuth().currentUser`と同等の処理を行います。
 
 ::: warning
-[`authSSR`](../guide/configuration#authssr)によってサーバーサイドでユーザーの情報を利用できますが、サーバーサイドで認証されてはいません。例えば、セキュリティールールを設定したFirestoreに対するサーバーサイドからのアクセスは失敗することがあります。クライアントサイドだけでデータにアクセスするか、サーバーサイドではAdmin SDKを使うことを検討してください。
+[`useAuthSSR`](../guide/configuration#useauthssr)によってサーバーサイドでユーザーの情報を利用できますが、サーバーサイドで認証されてはいません。例えば、セキュリティールールを設定したFirestoreに対するサーバーサイドからのアクセスは失敗することがあります。クライアントサイドだけでデータにアクセスするか、サーバーサイドではAdmin SDKを使うことを検討してください。
 :::
 
 ## Example

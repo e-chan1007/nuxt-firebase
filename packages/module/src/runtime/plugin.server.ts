@@ -5,9 +5,7 @@ import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 
 // Variables that will be injected by module
 interface Options {
-  adminSDKCredential: string
-  authSSR: boolean
-  disableAdminSDK: boolean
+  useAuthSSR: boolean
   firebaseConfig: FirebaseOptions
   recaptchaSiteKey: string
 }
@@ -41,5 +39,5 @@ export default defineNuxtPlugin((nuxtApp) => {
       isTokenAutoRefreshEnabled: true
     })
   }
-  if (options.authSSR) { authSSRPlugin(nuxtApp) }
+  if (options.useAuthSSR) { authSSRPlugin(nuxtApp) }
 })

@@ -7,7 +7,7 @@ This composable is available on both the client and server sides.
 Get `auth` instance and reactive `currentUser` and `isAuthenticated`. the same as to do `getAuth().currentUser`.
 
 ::: warning
-Even though you can know who the user is on the server by enabling [`authSSR`](../guide/configuration#authssr), they cannot be currently authenticated there. For example, using Firestore with security rules based on identity could fail. You might have to consider using it on Client-side only or using Admin SDK.
+Even though you can know who the user is on the server by enabling [`useAuthSSR`](../guide/configuration#useauthssr), they cannot be currently authenticated there. For example, using Firestore with security rules based on identity could fail. You might have to consider using it on Client-side only or using Admin SDK.
 :::
 
 ## Example

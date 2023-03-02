@@ -8,20 +8,20 @@ prev: ./getting-started.md
 export interface ModuleOptions {
   config?: FirebaseOptions | string,
   configEnvPrefix?: string
-  recaptchaSiteKey?: string
-  authSSR?: boolean
   adminSDKCredential?: string | ServiceAccount
-  disableAdminSDK?: boolean
-  injectMessagingServiceWorker?: boolean
-  vapidKey?: string
-  devtools?: boolean
+  recaptchaSiteKey?: string
+  vapidKey?: string  
+  useAdminSDK?: boolean
+  useAuthSSR?: boolean      
+  useDevtools?: boolean
+  useMessagingServiceWorker?: boolean
 }
 
 const DEFAULTS: ModuleOptions = {
-  authSSR: true,
-  disableAdminSDK: false,
-  injectMessagingServiceWorker: false,
-  devtools: true
+  useAdminSDK: false,
+  useAuthSSR: true,  
+  useMessagingServiceWorker: false,
+  useDevtools: true
 }
 ```
 
@@ -50,23 +50,6 @@ You might be able to omit some options which are for the service you don't use.
 
 You can also use `.env`.
 
-## `recaptchaSiteKey`
-
-reCAPTCHA site key.\
-If this option is provided, automatically enable `AppCheck`.
-
-If `configEnvPrefix` is provided, read the value from `${configPrefix}RECAPTCHA_SITE_KEY`
-
-## `authSSR`
-
-Whether to use Service Worker for the authenticate session management.\
-This option can be used without Admin SDK, but some features would be disabled.\
-For security reasons, it is highly recommended to set Admin SDK credential, too.
-
-::: tip
-If you do Static Site Generation (`nuxi generate`), this option will automatically disabled.
-:::
-
 ## `adminSDKCredential`
 
 The credential of **Admin SDK** or its path.
@@ -80,20 +63,39 @@ The way to determine which credential to use:
 
 **If you use Admin SDK, be careful not to publish the credential file. Make sure that the file is `gitignored`.**
 
-## `disableAdminSDK`
+## `recaptchaSiteKey`
 
-Whether to disable Admin SDK.
+reCAPTCHA site key.\
+If this option is provided, automatically enable `AppCheck`.
 
-## `injectMessagingServiceWorker`
-
-Whether to use builtin service worker for Cloud Messaging.
+If `configEnvPrefix` is provided, read the value from `${configPrefix}RECAPTCHA_SITE_KEY`
 
 ## `vapidKey`
 
 VAPID (Voluntary Application Server Identification) key for Cloud Messaging
 If `configEnvPrefix` is provided, read the value from `${configPrefix}VAPID_KEY`
 
-## `devtools`
+## `useAdminSDK`
+
+Whether to enable Admin SDK.
+Even if the credential is available, disabling this parameter makes SDK disabled.\
+If `firebase-admin` is not installed, disabled automatically.
+
+## `useAuthSSR`
+
+Whether to use Service Worker for the authenticate session management.\
+This option can be used without Admin SDK, but some features would be disabled.\
+For security reasons, it is highly recommended to set Admin SDK credential, too.
+
+::: tip
+If you do Static Site Generation (`nuxi generate`), this option will automatically disabled.
+:::
+
+## `useDevtools`
 
 Whether to enable DevTools.
 If you want to use this, you should also install [`@nuxt/devtools`](https://github.com/nuxt/devtools).
+
+## `useMessagingServiceWorker`
+
+Whether to use builtin service worker for Cloud Messaging.

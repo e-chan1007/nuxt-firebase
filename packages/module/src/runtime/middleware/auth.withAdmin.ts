@@ -6,8 +6,6 @@ import type { AuthUser } from '../types'
 // Variables that will be injected by module
 interface Options {
   adminSDKCredential: string
-  authSSR: boolean
-  disableAdminSDK: boolean
 }
 
 // @ts-ignore

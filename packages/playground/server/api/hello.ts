@@ -1,3 +1,4 @@
+import { setResponseStatus } from 'h3'
 import { useServerAuth } from '#firebase/server'
 
 export default defineEventHandler((event) => {
@@ -5,8 +6,7 @@ export default defineEventHandler((event) => {
   const { currentUser, isAuthenticated } = useServerAuth(event)
 
   if (!isAuthenticated) {
-    event.res.statusCode = 401
-    event.res.statusMessage = 'Unauthorized'
+    setResponseStatus(event, 401, 'Unauthorized')
     return {
       message: 'Not authenticated',
       user: null

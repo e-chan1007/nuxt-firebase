@@ -8,25 +8,11 @@ export interface ModuleOptions {
   /**
    * SDK configuration(Object or JSON string)
    */
-  // TODO: Change `object` to `FirebaseOptions` and success to build
   config: string | object,
   /**
    * Prefix of environment variables that includes SDK configuration
    */
   configEnvPrefix?: string
-  /**
-   * reCAPTCHA site key (if set, enable App Check)
-   * @see https://firebase.google.com/docs/app-check/web/recaptcha-provider
-   */
-  recaptchaSiteKey?: string
-  /**
-   * Whether to use Service Worker for the authenticate session management  
-   * If used without set `adminSDKCredential`, some features would be disabled.
-   * @default true
-   * @see https://firebase.google.com/docs/auth/web/service-worker-sessions
-   */
-  authSSR: boolean
-
   /**
    * Credential (path) of Admin SDK
    * 
@@ -39,29 +25,43 @@ export interface ModuleOptions {
   adminSDKCredential?: string | object
 
   /**
-   * Whether to disable Admin SDK  
-   * Even if the credential is available, enabling this parameter makes SDK disabled.  
+   * reCAPTCHA site key (if set, enable App Check)
+   * @see https://firebase.google.com/docs/app-check/web/recaptcha-provider
+   */
+  recaptchaSiteKey?: string
+
+  /**
+   * VAPID (Voluntary Application Server Identification) key for Cloud Messaging
+   */
+  vapidKey?: string
+
+  /**
+   * Whether to enable Admin SDK  
+   * Even if the credential is available, disabling this parameter makes SDK disabled.  
    * If `firebase-admin` is not installed, disabled automatically.
    * @default false
    */
-  disableAdminSDK: boolean,
+  useAdminSDK: boolean
+
+  /**
+   * Whether to use Service Worker for the authenticate session management  
+   * If used without set `adminSDKCredential`, some features would be disabled.
+   * @default true
+   * @see https://firebase.google.com/docs/auth/web/service-worker-sessions
+   */
+  useAuthSSR: boolean
+
+  /**
+   * Whether to use Nuxt Devtools Tab
+   */
+  useDevtools: boolean
 
   /**
    * Whether to use builtin service worker for Cloud Messaging
    * If you want to use the service worker that you made, keep this option `false`.
    * @default false
    */
-  injectMessagingServiceWorker: boolean,
-
-  /**
-   * VAPID (Voluntary Application Server Identification) key for Cloud Messaging
-   */
-  vapidKey?: string,
-
-  /**
-   * Whether to use Nuxt Devtools Tab
-   */
-  devtools: boolean
+  useMessagingServiceWorker: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -72,11 +72,11 @@ export default defineNuxtModule<ModuleOptions>({
   },
   defaults: {
     config: {},
-    authSSR: true,
     recaptchaSiteKey: '',
-    disableAdminSDK: false,
-    injectMessagingServiceWorker: false,
-    devtools: true
+    useAdminSDK: false,
+    useAuthSSR: true,
+    useDevtools: true,
+    useMessagingServiceWorker: false
   },
   async setup (options, nuxt) {
     const baseURL = nuxt.options.app.baseURL
@@ -89,20 +89,20 @@ export default defineNuxtModule<ModuleOptions>({
 
     // If `generate`, disable all SSR features
     if (nuxt.options._generate) {
-      options.authSSR = false
+      options.useAuthSSR = false
     }
 
     // If `firebase-admin` is not installed, disable features
     try {
       require.resolve('firebase-admin')
     } catch (e) {
-      options.disableAdminSDK = true
+      options.useAdminSDK = false
     }
 
     /* Composables */
     const composableNames = ['useAuth', 'useFirebase', 'useFCMToken']
     const serverComposableNames = ['useFirebase', 'useServerAuth']
-    if (!options.disableAdminSDK) {
+    if (options.useAdminSDK) {
       composableNames.push('useFirebaseAdmin')
       serverComposableNames.push('useFirebaseAdmin')
     }
@@ -129,8 +129,8 @@ export default defineNuxtModule<ModuleOptions>({
     }).dst
     nuxt.hook('nitro:config', (nitroConfig) => {
       nitroConfig.alias = nitroConfig.alias ?? {}
-      nitroConfig.alias['#firebase'] = resolve(options.disableAdminSDK ? './composables' : './composables/index.withAdmin')
-      nitroConfig.alias['#firebase/server'] = resolve(options.disableAdminSDK ? './composables/server' : './composables/server.withAdmin')
+      nitroConfig.alias['#firebase'] = resolve(options.useAdminSDK ? './composables/index.withAdmin' : './composables/index')
+      nitroConfig.alias['#firebase/server'] = resolve(options.useAdminSDK ? './composables/server.withAdmin' : './composables/server')
     })
     nuxt.hook('prepare:types', (options) => {
       options.references.push({ path: composablesTypePath })
@@ -168,17 +168,17 @@ export default defineNuxtModule<ModuleOptions>({
     /* Service Worker */
     const swFeatures: ServiceWorkerFeature[] = []
 
-    if (options.authSSR) {
+    if (options.useAuthSSR) {
       const middlewarePath = addTemplate({
         write: true,
-        filename: options.disableAdminSDK ? 'middleware/auth.ts' : 'middleware/auth.withAdmin.ts',
+        filename: options.useAdminSDK ? 'middleware/auth.withAdmin.ts' : 'middleware/auth.ts',
         getContents: getJSTemplateContents(resolve('middleware/auth')),
         options
       }).dst
       nuxt.options.serverHandlers.push({ handler: middlewarePath })
       swFeatures.push('auth')
     }
-    if (options.injectMessagingServiceWorker) {
+    if (options.useMessagingServiceWorker) {
       swFeatures.push('messaging')
     }
 
@@ -187,7 +187,7 @@ export default defineNuxtModule<ModuleOptions>({
     addPluginTemplate({
       filename: 'plugin.client.ts',
       getContents: getJSTemplateContents(resolve('plugin.client')),
-      options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swEntries }
+      options: { firebaseConfig, recaptchaSiteKey, swEntries }
     })
 
     /* Admin SDK */
@@ -198,8 +198,8 @@ export default defineNuxtModule<ModuleOptions>({
       options: { ...options, firebaseConfig }
     })
 
-    if (options.devtools) {
-    // @ts-expect-error
+    if (options.useDevtools) {
+      // @ts-expect-error
       nuxt.hook('devtools:customTabs', (tabs) => {
         tabs.push({
           name: 'nuxt-firebase',

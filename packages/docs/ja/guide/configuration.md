@@ -8,20 +8,20 @@ prev: ./getting-started.md
 export interface ModuleOptions {
   config?: FirebaseOptions | string,
   configEnvPrefix?: string
-  recaptchaSiteKey?: string
-  authSSR?: boolean
   adminSDKCredential?: string | ServiceAccount
-  disableAdminSDK?: boolean
-  injectMessagingServiceWorker?: boolean
-  vapidKey?: string
-  devtools?: boolean
+  recaptchaSiteKey?: string
+  vapidKey?: string  
+  useAdminSDK?: boolean
+  useAuthSSR?: boolean      
+  useDevtools?: boolean
+  useMessagingServiceWorker?: boolean
 }
 
 const DEFAULTS: ModuleOptions = {
-  authSSR: true,
-  disableAdminSDK: false,
-  injectMessagingServiceWorker: false,
-  devtools: true
+  useAdminSDK: false,
+  useAuthSSR: true,  
+  useMessagingServiceWorker: false,
+  useDevtools: true
 }
 ```
 
@@ -50,24 +50,6 @@ FIREBASE_MEASUREMENT_ID=value
 
 `.env`を使って環境変数を管理することもできます。
 
-## `recaptchaSiteKey`
-
-reCAPTCHAのサイトキー
-
-値が設定されている場合、自動的に`AppCheck`を有効にします。\
-`configEnvPrefix`が設定されている場合は、環境変数`${configEnvPrefix}RECAPTCHA_SITE_KEY`から値を取得します。
-
-## `authSSR`
-
-Service Workerを利用したセッション管理をするか
-
-この設定はAdmin SDKが無効であっても利用できますが、いくつかの機能が制限されることがあります。\
-セキュリティ上の理由から、この設定を有効にする場合はAdmin SDKも同時に有効化することを推奨します。
-
-::: tip
-サイトを静的に生成する場合(`nuxi generate`)、この設定は自動で無効化されます。
-:::
-
 ## `adminSDKCredential`
 
 **Admin SDK** の認証情報またはそのパス
@@ -81,13 +63,12 @@ Service Workerを利用したセッション管理をするか
 
 **Admin SDKの認証情報が公開されないように注意してください。`.gitignore`への追記もお忘れなく。**
 
-## `disableAdminSDK`
+## `recaptchaSiteKey`
 
-Admin SDKを無効化します。
+reCAPTCHAのサイトキー
 
-## `injectMessagingServiceWorker`
-
-モジュールに組み込まれたFirebase Cloud Messaging(FCM)用のService Workerを有効化します。
+値が設定されている場合、自動的に`AppCheck`を有効にします。\
+`configEnvPrefix`が設定されている場合は、環境変数`${configEnvPrefix}RECAPTCHA_SITE_KEY`から値を取得します。
 
 ## `vapidKey`
 
@@ -95,7 +76,27 @@ FCM用のVAPID (Voluntary Application Server Identification)鍵
 
 `configEnvPrefix`が設定されている場合は、環境変数`${configEnvPrefix}VAPID_KEY`から値を取得します。
 
-## `devtools`
+## `useAdminSDK`
 
-DevToolsを有効化します。
+Admin SDKを利用するか
+
+## `useAuthSSR`
+
+Service Workerを利用したセッション管理をするか
+
+この設定はAdmin SDKが無効であっても利用できますが、いくつかの機能が制限されることがあります。\
+セキュリティ上の理由から、この設定を有効にする場合はAdmin SDKも同時に有効化することを推奨します。
+
+::: tip
+サイトを静的に生成する場合(`nuxi generate`)、この設定は自動で無効化されます。
+:::
+
+## `useDevtools`
+
+DevToolsを利用するか
+
 この機能を利用するためには、[`@nuxt/devtools`](https://github.com/nuxt/devtools)のインストールも必要です。
+
+## `useMessagingServiceWorker`
+
+モジュールに組み込まれたFirebase Cloud Messaging(FCM)用のService Workerを有効化します。

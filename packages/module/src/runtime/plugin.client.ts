@@ -4,7 +4,6 @@ import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 
 // Variables that will be injected by module
 interface Options {
-  authSSR: boolean
   swEntries: Record<string, string>,
   firebaseConfig: FirebaseOptions
   recaptchaSiteKey: string
