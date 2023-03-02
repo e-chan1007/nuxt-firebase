@@ -1,5 +1,5 @@
 import { getApp, initializeApp } from 'firebase/app'
-import { useRuntimeConfig } from 'nuxt/app'
+import { useRuntimeConfig } from '#imports'
 
 /**
  * Use Firebase App

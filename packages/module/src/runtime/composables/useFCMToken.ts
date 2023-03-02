@@ -1,5 +1,5 @@
 import { getMessaging, getToken } from 'firebase/messaging'
-import { useRuntimeConfig } from 'nuxt/app'
+import { useRuntimeConfig } from '#imports'
 
 export const useFCMToken = async () => {
   if (process.client) {

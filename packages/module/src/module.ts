@@ -1,7 +1,6 @@
 import { fileURLToPath } from 'url'
 import { createRequire } from 'node:module'
-import { addImports, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
-import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { addImports, addPluginTemplate, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit'
 import { getJSTemplateContents } from './util/template'
 import { ServiceWorkerFeature, setupServiceWorker } from './serviceworker'
 
@@ -57,7 +56,12 @@ export interface ModuleOptions {
   /**
    * VAPID (Voluntary Application Server Identification) key for Cloud Messaging
    */
-  vapidKey?: string
+  vapidKey?: string,
+
+  /**
+   * Whether to use Nuxt Devtools Tab
+   */
+  devtools: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -71,7 +75,8 @@ export default defineNuxtModule<ModuleOptions>({
     authSSR: true,
     recaptchaSiteKey: '',
     disableAdminSDK: false,
-    injectMessagingServiceWorker: false
+    injectMessagingServiceWorker: false,
+    devtools: true
   },
   async setup (options, nuxt) {
     const baseURL = nuxt.options.app.baseURL
@@ -102,7 +107,14 @@ export default defineNuxtModule<ModuleOptions>({
       serverComposableNames.push('useFirebaseAdmin')
     }
 
-    addImports([...composableNames, ...serverComposableNames].map(name => ({ name, from: resolve(`composables/${name}`) })))
+    const toKebab = (input: string) => input.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+    addImports([...composableNames, ...serverComposableNames].map(name => ({
+      name,
+      from: resolve(`composables/${name}`),
+      meta: {
+        docsUrl: `https://e-chan1007.github.io/nuxt-firebase/references/${toKebab(name)}`
+      }
+    })))
 
     const composablesTypePath = addTemplate({
       filename: 'types/firebase.d.ts',
@@ -185,5 +197,20 @@ export default defineNuxtModule<ModuleOptions>({
       getContents: getJSTemplateContents(resolve('plugin.server')),
       options: { ...options, firebaseConfig }
     })
+
+    if (options.devtools) {
+    // @ts-expect-error
+      nuxt.hook('devtools:customTabs', (tabs) => {
+        tabs.push({
+          name: 'nuxt-firebase',
+          title: 'Nuxt Firebase',
+          icon: 'mdi:firebase',
+          view: {
+            type: 'iframe',
+            src: 'https://e-chan1007.github.io/nuxt-firebase/references/use-firebase'
+          }
+        })
+      })
+    }
   }
 })

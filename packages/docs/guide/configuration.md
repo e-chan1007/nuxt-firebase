@@ -14,12 +14,14 @@ export interface ModuleOptions {
   disableAdminSDK?: boolean
   injectMessagingServiceWorker?: boolean
   vapidKey?: string
+  devtools?: boolean
 }
 
 const DEFAULTS: ModuleOptions = {
   authSSR: true,
   disableAdminSDK: false,
-  injectMessagingServiceWorker: false
+  injectMessagingServiceWorker: false,
+  devtools: true
 }
 ```
 
@@ -90,3 +92,8 @@ Whether to use builtin service worker for Cloud Messaging.
 
 VAPID (Voluntary Application Server Identification) key for Cloud Messaging
 If `configEnvPrefix` is provided, read the value from `${configPrefix}VAPID_KEY`
+
+## `devtools`
+
+Whether to enable DevTools.
+If you want to use this, you should also install [`@nuxt/devtools`](https://github.com/nuxt/devtools).

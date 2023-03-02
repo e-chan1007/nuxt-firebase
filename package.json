@@ -35,19 +35,19 @@
     "docs:build": "yarn workspaces foreach run docs:build",
     "docs:serve": "yarn workspaces foreach run docs:serve",
     "lint": "eslint --ext .js,.cjs,.mjs,.ts,.cts,.mts,.vue . && remark . -q",
-    "postinstall": "husky install",
+    "_postinstall": "husky install",
     "prepack": "pinst --disable && yarn workspaces foreach run prepack",
     "postpack": "pinst --enable",
     "release": "standard-version"
   },
   "dependencies": {
     "@nuxt/kit": "^3.2.3",
-    "jsonwebtoken": "^9.0.0",
-    "vite-plugin-static-copy": "^0.13.1"
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@nuxt/devtools": "^0.2.5",
     "@nuxt/module-builder": "latest",
     "@nuxt/schema": "^3.2.3",
     "@nuxtjs/eslint-config-typescript": "latest",

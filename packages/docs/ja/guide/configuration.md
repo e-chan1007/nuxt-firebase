@@ -14,12 +14,14 @@ export interface ModuleOptions {
   disableAdminSDK?: boolean
   injectMessagingServiceWorker?: boolean
   vapidKey?: string
+  devtools?: boolean
 }
 
 const DEFAULTS: ModuleOptions = {
   authSSR: true,
   disableAdminSDK: false,
-  injectMessagingServiceWorker: false
+  injectMessagingServiceWorker: false,
+  devtools: true
 }
 ```
 
@@ -92,3 +94,8 @@ Admin SDKを無効化します。
 FCM用のVAPID (Voluntary Application Server Identification)鍵
 
 `configEnvPrefix`が設定されている場合は、環境変数`${configEnvPrefix}VAPID_KEY`から値を取得します。
+
+## `devtools`
+
+DevToolsを有効化します。
+この機能を利用するためには、[`@nuxt/devtools`](https://github.com/nuxt/devtools)のインストールも必要です。

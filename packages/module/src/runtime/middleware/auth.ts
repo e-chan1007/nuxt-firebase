@@ -1,5 +1,5 @@
 import { defineEventHandler, getHeader } from 'h3'
-import decode from 'jsonwebtoken/decode'
+import decode from 'jsonwebtoken/decode.js'
 import type { AuthUser } from '../types'
 
 export default defineEventHandler((event) => {

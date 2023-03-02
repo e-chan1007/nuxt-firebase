@@ -1,5 +1,5 @@
 import { applicationDefault, cert, getApp, initializeApp } from 'firebase-admin/app'
-import { useRuntimeConfig } from 'nuxt/app'
+import { useRuntimeConfig } from '#imports'
 
 /**
  * Use Firebase App
