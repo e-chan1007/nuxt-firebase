@@ -12,11 +12,14 @@ export interface ModuleOptions {
   authSSR?: boolean
   adminSDKCredential?: string | ServiceAccount
   disableAdminSDK?: boolean
+  injectMessagingServiceWorker?: boolean
+  vapidKey?: string
 }
 
 const DEFAULTS: ModuleOptions = {
   authSSR: true,
-  disableAdminSDK: false
+  disableAdminSDK: false,
+  injectMessagingServiceWorker: false
 }
 ```
 
@@ -79,3 +82,11 @@ Service Workerを利用したセッション管理をするか
 ## `disableAdminSDK`
 
 Admin SDKを無効化します。
+
+## `injectMessagingServiceWorker`
+
+モジュールに組み込まれたFirebase Cloud Messaging(FCM)用のService Workerを有効化します。
+
+## `vapidKey`
+
+FCM用のVAPID (Voluntary Application Server Identification)鍵を指定します。

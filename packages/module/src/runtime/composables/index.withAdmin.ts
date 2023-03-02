@@ -1,4 +1,5 @@
 export * from './useAuth'
 export * from './useFirebase'
 export * from './useFirebaseAdmin'
+export * from './useFCMToken'
 export * from './useServerAuth'

@@ -12,11 +12,14 @@ export interface ModuleOptions {
   authSSR?: boolean
   adminSDKCredential?: string | ServiceAccount
   disableAdminSDK?: boolean
+  injectMessagingServiceWorker?: boolean
+  vapidKey?: string
 }
 
 const DEFAULTS: ModuleOptions = {
   authSSR: true,
-  disableAdminSDK: false
+  disableAdminSDK: false,
+  injectMessagingServiceWorker: false
 }
 ```
 
@@ -78,3 +81,11 @@ The way to determine which credential to use:
 ## `disableAdminSDK`
 
 Whether to disable Admin SDK.
+
+## `injectMessagingServiceWorker`
+
+Whether to use builtin service worker for Cloud Messaging.
+
+## `vapidKey`
+
+VAPID (Voluntary Application Server Identification) key for Cloud Messaging

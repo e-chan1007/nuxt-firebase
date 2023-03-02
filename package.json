@@ -35,7 +35,7 @@
     "docs:build": "yarn workspaces foreach run docs:build",
     "docs:serve": "yarn workspaces foreach run docs:serve",
     "lint": "eslint --ext .js,.cjs,.mjs,.ts,.cts,.mts,.vue . && remark . -q",
-    "postinstall": "husky install",
+    "_postinstall": "husky install",
     "prepack": "pinst --disable && yarn workspaces foreach run prepack",
     "postpack": "pinst --enable",
     "release": "standard-version"

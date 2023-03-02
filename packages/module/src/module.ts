@@ -3,7 +3,7 @@ import { createRequire } from 'node:module'
 import { addImports, addPluginTemplate, addTemplate, addVitePlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { getJSTemplateContents } from './util/template'
-import { setupServiceWorkerBuilder } from './serviceworker-builder'
+import { ServiceWorkerFeature, setupServiceWorker } from './serviceworker'
 
 export interface ModuleOptions {
   /**
@@ -45,7 +45,19 @@ export interface ModuleOptions {
    * If `firebase-admin` is not installed, disabled automatically.
    * @default false
    */
-  disableAdminSDK: boolean
+  disableAdminSDK: boolean,
+
+  /**
+   * Whether to use builtin service worker for Cloud Messaging
+   * If you want to use the service worker that you made, keep this option `false`.
+   * @default false
+   */
+  injectMessagingServiceWorker: false,
+
+  /**
+   * VAPID (Voluntary Application Server Identification) key for Cloud Messaging
+   */
+  vapidKey?: string
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -58,7 +70,8 @@ export default defineNuxtModule<ModuleOptions>({
     config: {},
     authSSR: true,
     recaptchaSiteKey: '',
-    disableAdminSDK: false
+    disableAdminSDK: false,
+    injectMessagingServiceWorker: false
   },
   async setup (options, nuxt) {
     const baseURL = nuxt.options.app.baseURL
@@ -82,7 +95,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     /* Composables */
-    const composableNames = ['useAuth', 'useFirebase']
+    const composableNames = ['useAuth', 'useFirebase', 'useFCMToken']
     const serverComposableNames = ['useFirebase', 'useServerAuth']
     if (!options.disableAdminSDK) {
       composableNames.push('useFirebaseAdmin')
@@ -135,19 +148,14 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }
     nuxt.options.runtimeConfig.__FIREBASE_CONFIG__ = firebaseConfig as any
+    if (options.vapidKey) { nuxt.options.runtimeConfig.__FIREBASE_VAPID_KEY__ = options.vapidKey }
 
     const recaptchaSiteKey = process.env[options.configEnvPrefix + 'RECAPTCHA_SITE_KEY'] ?? options.recaptchaSiteKey
 
-    addPluginTemplate({
-      filename: 'plugin.client.ts',
-      getContents: getJSTemplateContents(resolve('plugin.client')),
-      options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swPath: resolveURL('nuxt-firebase-sw.js'), swScope: baseURL }
-    })
-
     /* Service Worker */
-    if (options.authSSR) {
-      await setupServiceWorkerBuilder(nuxt, resolve, resolveURL, firebaseConfig)
+    const swFeatures: ServiceWorkerFeature[] = []
 
+    if (options.authSSR) {
       const middlewarePath = addTemplate({
         write: true,
         filename: options.disableAdminSDK ? 'middleware/auth.ts' : 'middleware/auth.withAdmin.ts',
@@ -155,7 +163,19 @@ export default defineNuxtModule<ModuleOptions>({
         options
       }).dst
       nuxt.options.serverHandlers.push({ handler: middlewarePath })
+      swFeatures.push('auth')
     }
+    if (options.injectMessagingServiceWorker) {
+      swFeatures.push('messaging')
+    }
+
+    const swEntries = (await setupServiceWorker(nuxt, resolve, resolveURL, firebaseConfig, swFeatures))
+
+    addPluginTemplate({
+      filename: 'plugin.client.ts',
+      getContents: getJSTemplateContents(resolve('plugin.client')),
+      options: { authSSR: options.authSSR, firebaseConfig, recaptchaSiteKey, swEntries }
+    })
 
     /* Admin SDK */
     nuxt.options.runtimeConfig.__FIREBASE_ADMIN_SDK_CREDENTIAL__ = options.adminSDKCredential

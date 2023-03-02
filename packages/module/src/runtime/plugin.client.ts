@@ -1,12 +1,11 @@
-import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app'
+import { defineNuxtPlugin } from 'nuxt/app'
 import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 
 // Variables that will be injected by module
 interface Options {
   authSSR: boolean
-  swPath: string,
-  swScope: string,
+  swEntries: Record<string, string>,
   firebaseConfig: FirebaseOptions
   recaptchaSiteKey: string
 }
@@ -14,7 +13,7 @@ interface Options {
 // @ts-expect-error injected later
 const options: Options = {}
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin(async () => {
   const app = initializeApp(options.firebaseConfig)
 
   if (options.recaptchaSiteKey) {
@@ -24,7 +23,9 @@ export default defineNuxtPlugin(() => {
     })
   }
 
-  if (options.authSSR && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.register(options.swPath, { scope: options.swScope, type: 'module' })
+  if ('serviceWorker' in navigator) {
+    for (const [path, scope] of Object.entries(options.swEntries)) {
+      await navigator.serviceWorker.register(path, { scope, type: 'module' })
+    }
   }
 })
