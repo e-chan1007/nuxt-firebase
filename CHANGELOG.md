@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.1...v1.1.2) (2023-03-02)
+
+### Bug Fixes
+
+*   wrong config type ([cdf839d](https://github.com/e-chan1007/nuxt-firebase/commit/cdf839d81cf71de53f62f217212f8e74117e39f2))
+
 ### [1.1.1](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.0...v1.1.1) (2023-03-02)
 
 ### Features
