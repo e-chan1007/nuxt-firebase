@@ -1,7 +1,6 @@
 import { applicationDefault, cert, getApp, initializeApp as initializeAdminApp } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
 import { defineEventHandler, getHeader } from 'h3'
-import * as jwt from 'jsonwebtoken'
 import type { AuthUser } from '../types'
 
 // Variables that will be injected by module

@@ -1,5 +1,5 @@
 import { defineEventHandler, getHeader } from 'h3'
-import * as jwt from 'jsonwebtoken'
+import decode from 'jsonwebtoken/decode'
 import type { AuthUser } from '../types'
 
 export default defineEventHandler((event) => {
@@ -7,7 +7,7 @@ export default defineEventHandler((event) => {
   if (!idToken) { return }
   let currentUser: AuthUser | null = null
 
-  const decodedJWT = jwt.decode(idToken)
+  const decodedJWT = decode(idToken)
   if (!decodedJWT || typeof decodedJWT === 'string') { return }
   currentUser = { isSSRData: true, displayName: decodedJWT.name, photoURL: decodedJWT.picture, email: decodedJWT.email, uid: decodedJWT.user_id, emailVerified: decodedJWT.email_verified }
 

@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.2.3",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "vite-plugin-static-copy": "^0.13.1"
   },
   "devDependencies": {
