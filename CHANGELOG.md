@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.0...v1.1.1) (2023-03-02)
+
+### Features
+
+*   service worker for FCM ([4cda667](https://github.com/e-chan1007/nuxt-firebase/commit/4cda6673b00bb0ff42f7c655eb838b52a47dff5a))
+
 ## [1.1.0](https://github.com/e-chan1007/nuxt-firebase/compare/v1.0.1...v1.1.0) (2022-11-18)
 
 ### Features
