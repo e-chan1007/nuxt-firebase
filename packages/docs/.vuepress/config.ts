@@ -48,6 +48,7 @@ export default defineUserConfig({
               { text: 'useFirebaseAdmin', link: '/references/use-firebase-admin' },
               { text: 'useAuth', link: '/references/use-auth' },
               { text: 'useServerAuth', link: '/references/use-server-auth' },
+              { text: 'useFCMToken', link: '/references/use-fcm-token' }
             ]
           }
         ]
@@ -82,6 +83,7 @@ export default defineUserConfig({
               { text: 'useFirebaseAdmin', link: '/ja/references/use-firebase-admin' },
               { text: 'useAuth', link: '/ja/references/use-auth' },
               { text: 'useServerAuth', link: '/ja/references/use-server-auth' },
+              { text: 'useFCMToken', link: '/ja/references/use-fcm-token' }
             ]
           }
         ]
