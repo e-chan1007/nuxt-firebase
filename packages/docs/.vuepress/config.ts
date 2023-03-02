@@ -31,6 +31,10 @@ export default defineUserConfig({
           {
             text: 'References',
             link: '/references/use-firebase'
+          },
+          {
+            text: 'Examples',
+            link: 'https://stackblitz.com/@e-chan1007/collections/nuxt-firebase-examples'
           }
         ],
         sidebar: [
@@ -66,6 +70,10 @@ export default defineUserConfig({
           {
             text: 'リファレンス',
             link: '/ja/references/use-firebase'
+          },
+          {
+            text: 'サンプル',
+            link: 'https://stackblitz.com/@e-chan1007/collections/nuxt-firebase-examples'
           }
         ],
         sidebar: [
