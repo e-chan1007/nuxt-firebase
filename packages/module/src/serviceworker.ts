@@ -64,7 +64,7 @@ export async function setupServiceWorker (nuxt: Nuxt, resolve: Resolver['resolve
     })
     nuxt.hook('build:manifest', (manifest) => {
       for (const swURL of swIds.values()) {
-        manifest[swURL].isEntry = false
+        if (manifest[swURL]) { manifest[swURL].isEntry = false }
       }
     })
   }
