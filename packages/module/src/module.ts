@@ -15,12 +15,13 @@ export interface ModuleOptions {
   configEnvPrefix?: string
   /**
    * Credential (path) of Admin SDK
-   * 
-   * The way to determine which credential to use:  
-   * 1. Use Application Default Credentials if undefined (`GOOGLE_APPLICATION_CREDENTIALS`)  
-   * 2. Parse this value as JSON  
-   * 3. Parse this value as the file path of the JSON file  
+   *
+   * The way to determine which credential to use:
+   * 1. Use Application Default Credentials if undefined (`GOOGLE_APPLICATION_CREDENTIALS`)
+   * 2. Parse this value as JSON
+   * 3. Parse this value as the file path of the JSON file
    * 4. Use this value as the credential
+   * 5. Use the value of FIREBASE_ADMIN_SDK_CREDENTIAL as the credential
    */
   adminSDKCredential?: string | object
 
@@ -36,15 +37,15 @@ export interface ModuleOptions {
   vapidKey?: string
 
   /**
-   * Whether to enable Admin SDK  
-   * Even if the credential is available, disabling this parameter makes SDK disabled.  
+   * Whether to enable Admin SDK
+   * Even if the credential is available, disabling this parameter makes SDK disabled.
    * If `firebase-admin` is not installed, disabled automatically.
    * @default false
    */
   useAdminSDK: boolean
 
   /**
-   * Whether to use Service Worker for the authenticate session management  
+   * Whether to use Service Worker for the authenticate session management
    * If used without set `adminSDKCredential`, some features would be disabled.
    * @default true
    * @see https://firebase.google.com/docs/auth/web/service-worker-sessions
@@ -162,6 +163,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.runtimeConfig.__FIREBASE_CONFIG__ = firebaseConfig as any
     if (process.env[options.configEnvPrefix + 'VAPID_KEY']) { options.vapidKey ??= process.env[options.configEnvPrefix + 'VAPID_KEY'] }
     if (options.vapidKey) { nuxt.options.runtimeConfig.__FIREBASE_VAPID_KEY__ = options.vapidKey }
+    if (process.env[options.configEnvPrefix + 'ADMIN_SDK_CREDENTIAL']) { options.adminSDKCredential ??= process.env[options.configEnvPrefix + 'ADMIN_SDK_CREDENTIAL'] }
 
     const recaptchaSiteKey = process.env[options.configEnvPrefix + 'RECAPTCHA_SITE_KEY'] ?? options.recaptchaSiteKey
 
@@ -199,7 +201,7 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     if (options.useDevtools) {
-      // @ts-expect-error
+      // @ts-expect-error there is no type
       nuxt.hook('devtools:customTabs', (tabs) => {
         tabs.push({
           name: 'nuxt-firebase',

@@ -112,6 +112,7 @@ const viteBuildPlugin = (resolve: Resolver['resolve'], features: ServiceWorkerFe
       if (isServer) { return }
       for (const [feature, chunkId] of chunkIds.entries()) {
         plugin.outputPaths.set(feature, resolve(output.dir!, this.getFileName(chunkId)))
+        console.log(plugin.outputPaths)
       }
     }
   }
