@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.3...v1.1.4) (2023-04-16)
+
+
+### Features
+
+* add ADMIN_SDK_CREDENTIAL env to read a credential ([e9c2657](https://github.com/e-chan1007/nuxt-firebase/commit/e9c26570e53fecdba9cf0baadcd66f3f59d3f262))
+
+
+### Bug Fixes
+
+* manifest[swUrl] not found ([d981d07](https://github.com/e-chan1007/nuxt-firebase/commit/d981d07a3337793e438ed1dd97682e29d0f3936f))
+
 ### [1.1.3](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.2...v1.1.3) (2023-03-02)
 
 ### ⚠ BREAKING CHANGES
