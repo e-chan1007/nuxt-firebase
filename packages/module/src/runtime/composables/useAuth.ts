@@ -1,12 +1,14 @@
-import { Ref, ComputedRef, computed, useNuxtApp, useState } from '#imports'
+
+import { computed, useNuxtApp, useState } from '#imports'
 import { getAuth } from 'firebase/auth'
 import type { Auth as FirebaseAuth } from 'firebase/auth'
+import { ComputedRef, Ref } from 'nuxt/dist/app/compat/capi'
 import type { AuthUser } from '../types'
 import { useFirebase } from './useFirebase'
 
 interface Auth {
   /**
-   * `Auth` instance of Firebase (The same as the return value of `getAuth()`)  
+   * `Auth` instance of Firebase (The same as the return value of `getAuth()`)
    * If unavailable, returns `null`
    */
    auth: FirebaseAuth | null

@@ -201,7 +201,6 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     if (options.useDevtools) {
-      // @ts-expect-error there is no type
       nuxt.hook('devtools:customTabs', (tabs) => {
         tabs.push({
           name: 'nuxt-firebase',
