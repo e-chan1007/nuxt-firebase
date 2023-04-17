@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.5](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.4...v1.1.5) (2023-04-17)
+
+
+### Bug Fixes
+
+* manifest url was sometimes wrong ([31931ed](https://github.com/e-chan1007/nuxt-firebase/commit/31931ed70cd92336a5760d9ea031cba28e5bad6a))
+
 ### [1.1.4](https://github.com/e-chan1007/nuxt-firebase/compare/v1.1.3...v1.1.4) (2023-04-16)
 
 
